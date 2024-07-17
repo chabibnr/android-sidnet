@@ -1,4 +1,5 @@
 import 'package:app/modules/absensi/screen/absensi_load_screen.dart';
+import 'package:app/modules/spl/screen/spl_load_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,7 +22,12 @@ class ServicesSection extends StatelessWidget {
                 );
               }),
               buildServices(context, "Cuti", "assets/icons/dashboard/leave.png", Colors.grey.shade100, Colors.green, () {}),
-              buildServices(context, "SPL", "assets/icons/dashboard/timesheet.png", Colors.grey.shade100, Colors.blue, () {}),
+              buildServices(context, "SPL", "assets/icons/dashboard/timesheet.png", Colors.grey.shade100, Colors.blue, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SplLoadScreen()),
+                );
+              }),
             ],
           ),
           const SizedBox(

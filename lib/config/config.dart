@@ -5,6 +5,7 @@ import 'package:app/interceptor/auth_request_interceptor.dart';
 import 'package:app/modules/absensi/service/absensi_service.dart';
 import 'package:app/modules/account/service/account_service.dart';
 import 'package:app/modules/auth/service/auth_service.dart';
+import 'package:app/modules/spl/service/spl_service.dart';
 import 'package:chopper/chopper.dart';
 import 'package:http/io_client.dart' show IOClient;
 import 'package:intl/date_symbol_data_local.dart';
@@ -30,6 +31,7 @@ class Config {
         AuthService.create(),
         AccountService.create(),
         AbsensiService.create(),
+        SplService.create(),
       ],
       converter: const JsonConverter(),
     );
