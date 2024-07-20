@@ -1,4 +1,5 @@
 import 'package:app/modules/absensi/screen/absensi_load_screen.dart';
+import 'package:app/modules/gaji/screen/gaji_load_screen.dart';
 import 'package:app/modules/spl/screen/spl_load_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,7 +37,12 @@ class ServicesSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildServices(context, "Gaji", "assets/icons/dashboard/expense_list.png", Colors.grey.shade100, Colors.red, () {}),
+              buildServices(context, "Gaji", "assets/icons/dashboard/expense_list.png", Colors.grey.shade100, Colors.red, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GajiLoadScreen()),
+                );
+              }),
               buildServices(context, "THR", "assets/icons/dashboard/thr.png", Colors.grey.shade100, Colors.cyan, () {}),
               buildServices(context, "Pinjaman", "assets/icons/dashboard/loan.png", Colors.grey.shade100, Colors.teal, () {}),
             ],
