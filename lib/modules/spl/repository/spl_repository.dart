@@ -10,7 +10,7 @@ class SplRepository {
 
   Future<SplList> load() async {
     try {
-      var response = await _service.load(pegawaiId: '1', tahun: '2024', bulan: '7');
+      var response = await _service.load(pegawaiId: App.I.session.getAuthData()!.pegawaiId, tahun: '2024', bulan: '7');
       if (response.statusCode == 401) {
         throw Error();
       }
@@ -36,7 +36,12 @@ class SplRepository {
 
   Future<Spl> add(Spl model) async {
     try {
-      var response = await _service.add();
+      var response = await _service.add(
+        pegawaiId: model.pegawaiId!,
+        date: model.splTglSpl!,
+        description: model.splKeterangan!,
+        duration: model.splLama!,
+      );
       if (response.statusCode == 401) {
         throw Error();
       }

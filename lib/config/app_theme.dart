@@ -15,7 +15,7 @@ class AppTheme {
           color: Colors.white,
         ),
         titleTextStyle: GoogleFonts.nunito(
-          fontSize: 16,
+          fontSize: 24,
           fontWeight: FontWeight.w400,
         ),
         centerTitle: true,

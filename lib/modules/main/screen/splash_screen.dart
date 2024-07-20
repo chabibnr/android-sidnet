@@ -1,4 +1,3 @@
-import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -61,10 +60,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                                 "assets/images/logo/login-logo.png",
                                 width: 100,
                               ),
-                              const Text(
-                                "SIDNET",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: ColorSchema.primaryColor),
-                              )
                             ],
                           ),
                         ),

@@ -1,19 +1,33 @@
 part of 'spl_add_cubit.dart';
 
-class SplAddState extends Equatable {
-    SplAddState({this.data, this.isLoading = true});
+class SplAddState extends FormStateData<SplAddState, Spl> {
+  SplAddState({
+    this.data,
+    this.isLoading = true,
+    this.status = SubmitStatus.idle,
+    this.message = '',
+  });
 
-    final Spl? data;
-    final bool isLoading;
-    final formKey = GlobalKey<FormBuilderState>();
+  final SubmitStatus status;
+  final String message;
+  final Spl? data;
+  final bool isLoading;
+  final formKey = GlobalKey<FormBuilderState>();
 
-    SplAddState copyWith({Spl? data, bool? isLoading}) {
-        return SplAddState(
-            data: data ?? this.data,
-            isLoading: isLoading ?? this.isLoading,
-        );
-    }
+  SplAddState copyWith({Spl? data, bool? isLoading, SubmitStatus? status, String? message}) {
+    return SplAddState(
+      data: data ?? this.data,
+      isLoading: isLoading ?? this.isLoading,
+      status: status ?? this.status,
+      message: message ?? this.message,
+    );
+  }
 
-    @override
-    List<Object?> get props => [data, isLoading];
+  @override
+  List<Object?> get props => [
+        data,
+        isLoading,
+        message,
+        status,
+      ];
 }

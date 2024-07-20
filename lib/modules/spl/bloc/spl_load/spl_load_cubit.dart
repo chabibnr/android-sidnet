@@ -10,31 +10,32 @@ import 'package:flutter/material.dart';
 part 'spl_load_state.dart';
 
 class SplLoadCubit extends Cubit<SplLoadState> {
-    final _splRepository = SplRepository();
+  final _splRepository = SplRepository();
 
-    SplLoadCubit() : super(SplLoadState());
+  SplLoadCubit() : super(SplLoadState());
 
-    load() async {
-        try {
-            var response = await _splRepository.load();
-            emit(state.copyWith(isLoading: false, data: response));
-            log("After Emit data");
-        } catch (e) {
-            log(e.toString());
-            log("Error emit data");
-        }
-   }
+  load() async {
+    try {
+      emit(state.copyWith(isLoading: true));
+      var response = await _splRepository.load();
+      emit(state.copyWith(isLoading: false, data: response));
+      log("After Emit data");
+    } catch (e) {
+      log(e.toString());
+      log("Error emit data");
+    }
+  }
 
-    execute() async {
-        try {
-            var response = await _splRepository.load();
-            emit(state.copyWith(isLoading: false, data: response));
-            log("After Emit data");
-        } catch (e) {
-            log(e.toString());
-            log("Error emit data");
-        }
-   }
+  execute() async {
+    try {
+      var response = await _splRepository.load();
+      emit(state.copyWith(isLoading: false, data: response));
+      log("After Emit data");
+    } catch (e) {
+      log(e.toString());
+      log("Error emit data");
+    }
+  }
 
-    // additional feature
+// additional feature
 }

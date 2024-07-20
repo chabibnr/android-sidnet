@@ -1,75 +1,88 @@
 import 'package:app/component/custom_input_decoration.dart';
+import 'package:app/helper/form_state.dart';
+import 'package:app/modules/spl/bloc/spl_add/spl_add_cubit.dart';
+import 'package:app/modules/spl/bloc/spl_load/spl_load_cubit.dart';
 import 'package:app/modules/spl/model/spl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:intl/intl.dart';
 
 class FormPart extends StatelessWidget {
-    const FormPart({
-        super.key,
-        required this.isLoading,
-        required this.model,
-        required this.formKey,
-    });
+  const FormPart({
+    super.key,
+    required this.isLoading,
+    required this.model,
+    required this.formKey,
+  });
 
-    final bool isLoading;
-    final Spl model;
-    final GlobalKey<FormBuilderState> formKey;
+  final bool isLoading;
+  final Spl model;
+  final GlobalKey<FormBuilderState> formKey;
 
-    @override
-    Widget build(BuildContext context) {
-        return FormBuilder(
-            key: formKey,
-            child: Column(children: [
-                FormBuilderTextField(
-                    name: 'spl_id',
-                    initialValue: model.splId,
-                    decoration: CustomInputDecoration().floating('spl_id'),
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilder(
+      key: formKey,
+      child: Column(children: [
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderDateTimePicker(
+            name: 'spl_tgl_spl',
+            initialValue: model.dateSpl,
+            format: DateFormat('EEEE, d MMMM y', 'ID'),
+            decoration: CustomInputDecoration().floating('Tanggal').copyWith(
+                  suffixIcon: const Icon(Icons.date_range_rounded),
+                  hintText: "Tanggal Lembur",
                 ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'spl_nomor',
-                    initialValue: model.splNomor,
-                    decoration: CustomInputDecoration().floating('spl_nomor'),
+            inputType: InputType.date,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderDateTimePicker(
+            name: 'spl_lama',
+            decoration: CustomInputDecoration().floating('Durasi Lembur').copyWith(
+                  suffixIcon: const Icon(Icons.more_time),
+                  hintText: "Berapa jam lembur yang dilakukan",
                 ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'spl_tanggal',
-                    initialValue: model.splTanggal,
-                    decoration: CustomInputDecoration().floating('spl_tanggal'),
+            inputType: InputType.time,
+            initialTime: const TimeOfDay(hour: 1, minute: 0),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderTextField(
+            name: 'spl_keterangan',
+            initialValue: model.splKeterangan,
+            minLines: 5,
+            maxLines: 8,
+            decoration: CustomInputDecoration().floating('Keterangan').copyWith(
+                  hintText: "Deskripsikan pekerjaan yang akan dilakukan.",
                 ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'spl_tgl_spl',
-                    initialValue: model.splTglSpl,
-                    decoration: CustomInputDecoration().floating('spl_tgl_spl'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'spl_lama',
-                    initialValue: model.splLama,
-                    decoration: CustomInputDecoration().floating('spl_lama'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'spl_keterangan',
-                    initialValue: model.splKeterangan,
-                    decoration: CustomInputDecoration().floating('spl_keterangan'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'spl_status',
-                    initialValue: model.splStatus,
-                    decoration: CustomInputDecoration().floating('spl_status'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'spl_alasan_penolakan',
-                    initialValue: model.splAlasanPenolakan,
-                    decoration: CustomInputDecoration().floating('spl_alasan_penolakan'),
-                ),
-                const SizedBox(height: 16),
-            ]),
-        );
-    }
+            validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            context.read<SplAddCubit>().execute();
+          },
+          child: context.read<SplAddCubit>().state.status == SubmitStatus.progress ? CircularProgressIndicator() : Text('Kirim'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            BlocProvider.of<SplLoadCubit>(context).load();
+          },
+          child: Text('Back'),
+        ),
+      ]),
+    );
+  }
 }

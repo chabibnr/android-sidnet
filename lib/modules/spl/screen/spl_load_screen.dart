@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:app/component/empty_screen.dart';
 import 'package:app/modules/spl/bloc/spl_load/spl_load_cubit.dart';
 import 'package:app/modules/spl/model/spl.dart';
 import 'package:app/utils/contstants.dart';
@@ -16,6 +17,7 @@ class SplLoadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SplLoadCubit>().load();
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
@@ -31,8 +33,8 @@ class SplLoadScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
         ),
         backgroundColor: Colors.transparent,
-        body: BlocProvider(
-          create: (context) => SplLoadCubit()..load(),
+        body: RefreshIndicator(
+          onRefresh: () => context.read<SplLoadCubit>().load(),
           child: BlocConsumer<SplLoadCubit, SplLoadState>(
             listener: (context, state) {
               // TODO: implement listener
@@ -46,6 +48,15 @@ class SplLoadScreen extends StatelessWidget {
               }
               final data = state.data;
               if (data != null) {
+                if (data.items == null || data.items!.isEmpty) {
+                  return Container(
+                    width: double.infinity,
+                    child: const EmptyScreen(
+                      title: "Tidak ada data SPL",
+                      subtitle: "",
+                    ),
+                  );
+                }
                 return ListView.builder(
                     itemCount: data.items?.length,
                     itemBuilder: (BuildContext context, int index) {

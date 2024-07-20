@@ -70,10 +70,10 @@ class CustomInputDecoration {
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+        borderSide: BorderSide(color: Colors.grey.shade400, width: 0, style: BorderStyle.none),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: ColorSchema.primaryColor, width: 1),
+        borderSide: const BorderSide(color: ColorSchema.primaryColor, width: 0, style: BorderStyle.none),
         borderRadius: BorderRadius.circular(8),
       ),
       floatingLabelBehavior: FloatingLabelBehavior.always,

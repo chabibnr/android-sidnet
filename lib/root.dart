@@ -6,6 +6,7 @@ import 'package:app/modules/auth/screen/login_screen.dart';
 import 'package:app/modules/main/bloc/main_cubit.dart';
 import 'package:app/modules/main/screen/main_screen.dart';
 import 'package:app/modules/main/screen/splash_screen.dart';
+import 'package:app/modules/spl/bloc/spl_load/spl_load_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,6 +58,7 @@ class Root extends StatelessWidget {
               BlocProvider<MainCubit>(
                 create: (context) => MainCubit(),
               ),
+
               /*BlocProvider<HomeCubit>(
                 create: (context) => HomeCubit()..load(),
               ),

@@ -50,12 +50,24 @@ final class _$SplService extends SplService {
   }
 
   @override
-  Future<Response<dynamic>> add() {
+  Future<Response<dynamic>> add({
+    required String pegawaiId,
+    required String date,
+    required String duration,
+    required String description,
+  }) {
     final Uri $url = Uri.parse('mobile/simpanspl');
+    final $body = <String, dynamic>{
+      'pegawai_id': pegawaiId,
+      'tgl_spl': date,
+      'lama': duration,
+      'keterangan': description,
+    };
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
+      body: $body,
     );
     return client.send<dynamic, dynamic>($request);
   }

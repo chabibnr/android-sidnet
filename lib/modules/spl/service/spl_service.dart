@@ -14,8 +14,13 @@ abstract class SplService extends ChopperService {
   @Post(path: '/view', optionalBody: true)
   Future<Response> view();
 
-  @Post(path: '/simpanspl', optionalBody: true)
-  Future<Response> add();
+  @Post(path: '/simpanspl')
+  Future<Response> add({
+    @Field('pegawai_id') required String pegawaiId,
+    @Field('tgl_spl') required String date,
+    @Field('lama') required String duration,
+    @Field('keterangan') required String description,
+  });
 
   @Post(path: '/update', optionalBody: true)
   Future<Response> update();

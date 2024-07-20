@@ -1,7 +1,9 @@
 import 'package:app/app.dart';
 import 'package:app/bloc/root/root_cubit.dart';
 import 'package:app/config/app_theme.dart';
+import 'package:app/config/color_config.dart';
 import 'package:app/config/config.dart';
+import 'package:app/modules/spl/bloc/spl_load/spl_load_cubit.dart';
 import 'package:app/root.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +34,17 @@ class MyApp extends StatelessWidget {
         BlocProvider<RootCubit>(
           create: (context) => RootCubit()..load(),
         ),
+        BlocProvider<SplLoadCubit>(
+          create: (context) => SplLoadCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'Pejuang Alpha',
         debugShowMaterialGrid: false,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),
-        color: Color(0xffdb5412),
+        color: ColorConfig.primary,
+        builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child!),
         home: const Root(),
       ),
     );

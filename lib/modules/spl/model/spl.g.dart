@@ -21,6 +21,7 @@ Map<String, dynamic> _$SplListToJson(SplList instance) => <String, dynamic>{
     };
 
 Spl _$SplFromJson(Map<String, dynamic> json) => Spl(
+      pegawaiId: json['pegawai_id'] as String?,
       splId: json['spl_id'] as String?,
       splNomor: json['spl_nomor'] as String?,
       splTanggal: json['spl_tanggal'] as String?,
@@ -29,9 +30,14 @@ Spl _$SplFromJson(Map<String, dynamic> json) => Spl(
       splKeterangan: json['spl_keterangan'] as String?,
       splStatus: json['spl_status'] as String?,
       splAlasanPenolakan: json['spl_alasan_penolakan'] as String?,
-    );
+    )
+      ..respError = json['resp_error'] as bool?
+      ..respMsg = json['resp_msg'] as String?;
 
 Map<String, dynamic> _$SplToJson(Spl instance) => <String, dynamic>{
+      'resp_error': instance.respError,
+      'resp_msg': instance.respMsg,
+      'pegawai_id': instance.pegawaiId,
       'spl_id': instance.splId,
       'spl_nomor': instance.splNomor,
       'spl_tanggal': instance.splTanggal,

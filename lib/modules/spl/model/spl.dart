@@ -27,6 +27,15 @@ class SplList {
 
 @JsonSerializable()
 class Spl {
+  @JsonKey(name: "resp_error")
+  bool? respError;
+
+  @JsonKey(name: "resp_msg")
+  String? respMsg;
+  
+  @JsonKey(name: "pegawai_id")
+  String? pegawaiId;
+
   @JsonKey(name: "spl_id")
   String? splId;
 
@@ -58,6 +67,13 @@ class Spl {
     return null;
   }
 
+  DateTime? get dateSpl {
+    if (splTglSpl != null) {
+      return DateTime.parse(splTglSpl!);
+    }
+    return null;
+  }
+
   String get tanggal {
     if (date != null) {
       final DateFormat formatter = DateFormat('d MMMM y', 'ID');
@@ -68,16 +84,16 @@ class Spl {
   }
 
   String get tanggalSpl {
-    if (splTglSpl != null) {
-      var mDate = DateTime.parse(splTglSpl!);
+    if (dateSpl != null) {
       final DateFormat formatter = DateFormat('EEEE, d MMMM y', 'ID');
-      return formatter.format(mDate);
+      return formatter.format(dateSpl!);
     }
 
     return '';
   }
 
   Spl({
+    this.pegawaiId,
     this.splId,
     this.splNomor,
     this.splTanggal,
