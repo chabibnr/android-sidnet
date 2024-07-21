@@ -66,7 +66,7 @@ class GajiViewScreen extends StatelessWidget {
                         ),
                         InfoRow(
                           label: "Periode",
-                          value: data.jabatanNama,
+                          value: data.periode,
                         ),
                         InfoRow(
                           label: "Gaji Pokok",

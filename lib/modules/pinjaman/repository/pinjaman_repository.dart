@@ -1,14 +1,15 @@
 import 'dart:developer';
 
 import 'package:app/app.dart';
+import 'package:app/modules/pinjaman/model/angsuran.dart';
 
-import '../model/gaji.dart';
-import '../service/gaji_service.dart';
+import '../model/pinjaman.dart';
+import '../service/pinjaman_service.dart';
 
-class GajiRepository {
-  final _service = App.I.chopper.getService<GajiService>();
+class PinjamanRepository {
+  final _service = App.I.chopper.getService<PinjamanService>();
 
-  Future<GajiList> load() async {
+  Future<PinjamanList> load() async {
     try {
       var response = await _service.load(
         pegawaiId: App.I.session.getAuthData()!.pegawaiId,
@@ -17,20 +18,20 @@ class GajiRepository {
       if (response.statusCode == 401) {
         throw Error();
       }
-      return GajiList.fromJson(response.body);
+      return PinjamanList.fromJson(response.body);
     } catch (e) {
       log(e.toString());
       throw Exception('Failed to login');
     }
   }
 
-  Future<DetailGaji> view(Gaji model) async {
+  Future<AngsuranList> view(Pinjaman model) async {
     try {
-      var response = await _service.view(id: model.gajiId!);
+      var response = await _service.view(id: model.pinjamanId!);
       if (response.statusCode == 401) {
         throw Error();
       }
-      return DetailGaji.fromJson(response.body);
+      return AngsuranList.fromJson(response.body);
     } catch (e) {
       log(e.toString());
       throw Exception('Failed to login');

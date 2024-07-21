@@ -1,9 +1,10 @@
-part of 'gaji_load_screen.dart';
+part of 'pinjaman_load_screen.dart';
 
 class Item extends StatelessWidget {
   const Item({super.key, required this.model});
 
-  final Gaji model;
+  final Pinjaman model;
+
   final double columnSize = 120.0;
   final double valueSize = 100.0;
 
@@ -15,10 +16,9 @@ class Item extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "${model.gajiPeriode}",
+              "${model.pinjamanCode}",
               style: GoogleFonts.nunito(
                 fontSize: 20,
-                fontWeight: FontWeight.bold,
               ),
             ),
             Divider(),
@@ -26,7 +26,7 @@ class Item extends StatelessWidget {
               children: [
                 SizedBox(
                   width: columnSize,
-                  child: Text("Gaji Pokok"),
+                  child: Text("Tanggal"),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(right: 8),
@@ -35,8 +35,7 @@ class Item extends StatelessWidget {
                 SizedBox(
                   width: valueSize,
                   child: Text(
-                    "${model.gajiPokok}",
-                    textAlign: TextAlign.end,
+                    "${model.pinjamanDate}",
                   ),
                 ),
               ],
@@ -45,7 +44,7 @@ class Item extends StatelessWidget {
               children: [
                 SizedBox(
                   width: columnSize,
-                  child: Text("Gaji Kotor"),
+                  child: Text("Lama Pinjaman"),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(right: 8),
@@ -54,8 +53,7 @@ class Item extends StatelessWidget {
                 SizedBox(
                   width: valueSize,
                   child: Text(
-                    '${model.gajiBruto}',
-                    textAlign: TextAlign.end,
+                    "${model.pinjamanJk}",
                   ),
                 ),
               ],
@@ -64,7 +62,7 @@ class Item extends StatelessWidget {
               children: [
                 SizedBox(
                   width: columnSize,
-                  child: Text("Total Potongan"),
+                  child: Text("Status"),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(right: 8),
@@ -73,8 +71,25 @@ class Item extends StatelessWidget {
                 SizedBox(
                   width: valueSize,
                   child: Text(
-                    "${model.gajiTotalPot}",
-                    textAlign: TextAlign.end,
+                    "${model.status}",
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: columnSize,
+                  child: Text("Jenis Pinjaman"),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(right: 8),
+                  child: Text(":"),
+                ),
+                SizedBox(
+                  width: valueSize,
+                  child: Text(
+                    "${model.pinjamanTipe}",
                   ),
                 ),
               ],
@@ -84,7 +99,7 @@ class Item extends StatelessWidget {
               children: [
                 SizedBox(
                   width: columnSize,
-                  child: Text("Gaji Bersih"),
+                  child: Text("Total Pinjaman"),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(right: 8),
@@ -93,12 +108,11 @@ class Item extends StatelessWidget {
                 SizedBox(
                   width: valueSize,
                   child: Text(
-                    "${model.gajiNetto}",
-                    textAlign: TextAlign.end,
+                    "${model.pinjamanTotal}",
                     style: GoogleFonts.nunito(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                      color: Colors.red,
                     ),
                   ),
                 ),

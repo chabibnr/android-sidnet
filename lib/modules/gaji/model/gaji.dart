@@ -56,6 +56,9 @@ class DetailGaji {
   @JsonKey(name: "nama_bank")
   String? namaBank;
 
+  @JsonKey(name: "periode")
+  String? periode;
+
   @JsonKey(name: "item")
   Gaji? gaji;
 
@@ -111,7 +114,7 @@ class Gaji {
 
   @JsonKey(name: "gaji_lembur")
   String? gajiLembur;
- 
+
   @JsonKey(name: "gaji_tunj_hadir")
   String? gajiTunjHadir;
 

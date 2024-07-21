@@ -6,6 +6,7 @@ import 'package:app/modules/absensi/service/absensi_service.dart';
 import 'package:app/modules/account/service/account_service.dart';
 import 'package:app/modules/auth/service/auth_service.dart';
 import 'package:app/modules/gaji/service/gaji_service.dart';
+import 'package:app/modules/pinjaman/service/pinjaman_service.dart';
 import 'package:app/modules/spl/service/spl_service.dart';
 import 'package:chopper/chopper.dart';
 import 'package:http/io_client.dart' show IOClient;
@@ -34,6 +35,7 @@ class Config {
         AbsensiService.create(),
         SplService.create(),
         GajiService.create(),
+        PinjamanService.create(),
       ],
       converter: const JsonConverter(),
     );
