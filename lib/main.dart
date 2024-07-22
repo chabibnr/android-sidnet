@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Pejuang Alpha',
+        title: 'HRD SIDNET',
         debugShowMaterialGrid: false,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),

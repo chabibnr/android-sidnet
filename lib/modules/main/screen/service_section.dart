@@ -1,4 +1,5 @@
 import 'package:app/modules/absensi/screen/absensi_load_screen.dart';
+import 'package:app/modules/cuti/screen/cuti_load_screen.dart';
 import 'package:app/modules/gaji/screen/gaji_load_screen.dart';
 import 'package:app/modules/pinjaman/screen/pinjaman_load_screen.dart';
 import 'package:app/modules/spl/screen/spl_load_screen.dart';
@@ -23,7 +24,12 @@ class ServicesSection extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const AbsensiLoadScreen()),
                 );
               }),
-              buildServices(context, "Cuti", "assets/icons/dashboard/leave.png", Colors.grey.shade100, Colors.green, () {}),
+              buildServices(context, "Cuti", "assets/icons/dashboard/leave.png", Colors.grey.shade100, Colors.green, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CutiLoadScreen()),
+                );
+              }),
               buildServices(context, "SPL", "assets/icons/dashboard/timesheet.png", Colors.grey.shade100, Colors.blue, () {
                 Navigator.push(
                   context,

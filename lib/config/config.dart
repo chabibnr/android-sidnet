@@ -5,6 +5,7 @@ import 'package:app/interceptor/auth_request_interceptor.dart';
 import 'package:app/modules/absensi/service/absensi_service.dart';
 import 'package:app/modules/account/service/account_service.dart';
 import 'package:app/modules/auth/service/auth_service.dart';
+import 'package:app/modules/cuti/service/cuti_service.dart';
 import 'package:app/modules/gaji/service/gaji_service.dart';
 import 'package:app/modules/pinjaman/service/pinjaman_service.dart';
 import 'package:app/modules/spl/service/spl_service.dart';
@@ -19,7 +20,8 @@ class Config {
 
   ChopperClient chopperClient() {
     return ChopperClient(
-      baseUrl: Uri.parse('https://hrd.sidnet.co.id/api'),
+      //baseUrl: Uri.parse('https://hrd.sidnet.co.id/api'),
+      baseUrl: Uri.parse('https://hrd.prospak.id/api'),
       client: IOClient(HttpClient()..badCertificateCallback = ((X509Certificate cert, String host, int port) => true)),
       interceptors: [
         HttpLoggingInterceptor(),
@@ -36,6 +38,7 @@ class Config {
         SplService.create(),
         GajiService.create(),
         PinjamanService.create(),
+        CutiService.create(),
       ],
       converter: const JsonConverter(),
     );
