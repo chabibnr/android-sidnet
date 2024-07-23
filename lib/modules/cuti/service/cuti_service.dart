@@ -14,14 +14,28 @@ abstract class CutiService extends ChopperService {
   @Post(path: '/detailcuti', optionalBody: true)
   Future<Response> view();
 
-  @Post(path: '/simpancuti', optionalBody: true)
-  Future<Response> add();
+  @Post(
+    path: '/simpancuti',
+    headers: {"Content-Type": "multipart/formdata"},
+  )
+  @multipart
+  Future<Response> add({
+    @Field('pegawai_id') required String pegawaiId,
+    @Field('janis_absensi_id') required String jenisCutiId,
+    @Field('tgl_dari') required String since,
+    @Field('tgl_sampai') required String until,
+    @Field('keperluan') required String keperluan,
+    @PartFile('file') required String filePath,
+  });
 
   @Post(path: '/updatecuti', optionalBody: true)
   Future<Response> update();
 
   @Post(path: '/delete', optionalBody: true)
   Future<Response> delete();
+
+  @Post(path: '/listjenisabsensi', optionalBody: true)
+  Future<Response> jenisCuti();
 
   // additional feature
 

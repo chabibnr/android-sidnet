@@ -24,12 +24,14 @@ Cuti _$CutiFromJson(Map<String, dynamic> json) => Cuti(
       respError: json['resp_error'] as String?,
       respMsg: json['resp_msg'] as String?,
       cutiId: json['cuti_id'] as String?,
+      pegawaiId: json['pegawai_id'] as String?,
       pegawaiNama: json['pegawai_nama'] as String?,
       cabangNama: json['cabang_nama'] as String?,
       jabatanNama: json['jabatan_nama'] as String?,
       cutiNomor: json['cuti_nomor'] as String?,
       periode: json['periode'] as String?,
       cutiTanggal: json['cuti_tanggal'] as String?,
+      jenisAbsensiId: json['jenis_absensi_id'] as String?,
       jenisAbsensiNama: json['jenis_absensi_nama'] as String?,
       cutiDari: json['cuti_dari'] as String?,
       cutiSampai: json['cuti_sampai'] as String?,
@@ -39,18 +41,26 @@ Cuti _$CutiFromJson(Map<String, dynamic> json) => Cuti(
       cutiStatus: json['cuti_status'] as String?,
       statusData: json['status_data'] as String?,
       cutiAlasanPenolakan: json['cuti_alasan_penolakan'] as String?,
-    );
+    )
+      ..cutiTanggalMulai = json['cutiTanggalMulai'] == null
+          ? null
+          : DateTime.parse(json['cutiTanggalMulai'] as String)
+      ..cutiTanggalSampai = json['cutiTanggalSampai'] == null
+          ? null
+          : DateTime.parse(json['cutiTanggalSampai'] as String);
 
 Map<String, dynamic> _$CutiToJson(Cuti instance) => <String, dynamic>{
       'resp_error': instance.respError,
       'resp_msg': instance.respMsg,
       'cuti_id': instance.cutiId,
+      'pegawai_id': instance.pegawaiId,
       'pegawai_nama': instance.pegawaiNama,
       'cabang_nama': instance.cabangNama,
       'jabatan_nama': instance.jabatanNama,
       'cuti_nomor': instance.cutiNomor,
       'periode': instance.periode,
       'cuti_tanggal': instance.cutiTanggal,
+      'jenis_absensi_id': instance.jenisAbsensiId,
       'jenis_absensi_nama': instance.jenisAbsensiNama,
       'cuti_dari': instance.cutiDari,
       'cuti_sampai': instance.cutiSampai,
@@ -60,4 +70,6 @@ Map<String, dynamic> _$CutiToJson(Cuti instance) => <String, dynamic>{
       'cuti_status': instance.cutiStatus,
       'status_data': instance.statusData,
       'cuti_alasan_penolakan': instance.cutiAlasanPenolakan,
+      'cutiTanggalMulai': instance.cutiTanggalMulai?.toIso8601String(),
+      'cutiTanggalSampai': instance.cutiTanggalSampai?.toIso8601String(),
     };

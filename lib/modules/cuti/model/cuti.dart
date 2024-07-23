@@ -35,6 +35,9 @@ class Cuti {
   @JsonKey(name: "cuti_id")
   String? cutiId;
 
+  @JsonKey(name: "pegawai_id")
+  String? pegawaiId;
+
   @JsonKey(name: "pegawai_nama")
   String? pegawaiNama;
 
@@ -52,6 +55,9 @@ class Cuti {
 
   @JsonKey(name: "cuti_tanggal")
   String? cutiTanggal;
+
+  @JsonKey(name: "jenis_absensi_id")
+  String? jenisAbsensiId;
 
   @JsonKey(name: "jenis_absensi_nama")
   String? jenisAbsensiNama;
@@ -82,16 +88,21 @@ class Cuti {
 
   bool get hasReason => cutiAlasanPenolakan != null && cutiAlasanPenolakan!.isNotEmpty;
 
+  DateTime? cutiTanggalMulai;
+  DateTime? cutiTanggalSampai;
+
   Cuti({
     this.respError,
     this.respMsg,
     this.cutiId,
+    this.pegawaiId,
     this.pegawaiNama,
     this.cabangNama,
     this.jabatanNama,
     this.cutiNomor,
     this.periode,
     this.cutiTanggal,
+    this.jenisAbsensiId,
     this.jenisAbsensiNama,
     this.cutiDari,
     this.cutiSampai,

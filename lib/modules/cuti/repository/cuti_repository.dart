@@ -40,7 +40,14 @@ class CutiRepository {
 
   Future<Cuti> add(Cuti model) async {
     try {
-      var response = await _service.add();
+      var response = await _service.add(
+        pegawaiId: model.pegawaiId!,
+        filePath: model.cutiFile!,
+        jenisCutiId: model.jenisAbsensiId!,
+        keperluan: model.cutiKeperluan!,
+        since: model.cutiDari!,
+        until: model.cutiSampai!,
+      );
       if (response.statusCode == 401) {
         throw Error();
       }
@@ -71,6 +78,19 @@ class CutiRepository {
         throw Error();
       }
       return Cuti.fromJson(response.body);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('Failed to login');
+    }
+  }
+
+  Future<dynamic> jenisCuti() async {
+    try {
+      var response = await _service.jenisCuti();
+      if (response.statusCode == 401) {
+        throw Error();
+      }
+      return response.body['items'];
     } catch (e) {
       log(e.toString());
       throw Exception('Failed to login');

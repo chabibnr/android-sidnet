@@ -1,7 +1,6 @@
 import 'package:app/component/custom_input_decoration.dart';
 import 'package:app/helper/form_state.dart';
 import 'package:app/modules/spl/bloc/spl_add/spl_add_cubit.dart';
-import 'package:app/modules/spl/bloc/spl_load/spl_load_cubit.dart';
 import 'package:app/modules/spl/model/spl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,13 +73,6 @@ class FormPart extends StatelessWidget {
             context.read<SplAddCubit>().execute();
           },
           child: context.read<SplAddCubit>().state.status == SubmitStatus.progress ? CircularProgressIndicator() : Text('Kirim'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            BlocProvider.of<SplLoadCubit>(context).load();
-          },
-          child: Text('Back'),
         ),
       ]),
     );

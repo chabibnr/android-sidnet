@@ -50,12 +50,40 @@ final class _$CutiService extends CutiService {
   }
 
   @override
-  Future<Response<dynamic>> add() {
+  Future<Response<dynamic>> add({
+    required String pegawaiId,
+    required String jenisCutiId,
+    required String since,
+    required String until,
+    required String keperluan,
+    required String filePath,
+  }) {
     final Uri $url = Uri.parse('mobile/simpancuti');
+    final Map<String, String> $headers = {
+      'Content-Type': 'multipart/formdata',
+    };
+    final $body = <String, dynamic>{
+      'pegawai_id': pegawaiId,
+      'janis_absensi_id': jenisCutiId,
+      'tgl_dari': since,
+      'tgl_sampai': until,
+      'keperluan': keperluan,
+    };
+    print($body);
+    final List<PartValue> $parts = <PartValue>[
+      PartValueFile<String>(
+        'file',
+        filePath,
+      )
+    ];
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
+      body: $body,
+      parts: $parts,
+      multipart: true,
+      headers: $headers,
     );
     return client.send<dynamic, dynamic>($request);
   }
@@ -74,6 +102,17 @@ final class _$CutiService extends CutiService {
   @override
   Future<Response<dynamic>> delete() {
     final Uri $url = Uri.parse('mobile/delete');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> jenisCuti() {
+    final Uri $url = Uri.parse('mobile/listjenisabsensi');
     final Request $request = Request(
       'POST',
       $url,

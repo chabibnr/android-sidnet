@@ -1,87 +1,124 @@
 import 'package:app/component/custom_input_decoration.dart';
+import 'package:app/modules/cuti/bloc/cuti_add/cuti_add_cubit.dart';
 import 'package:app/modules/cuti/model/cuti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:form_builder_file_picker/form_builder_file_picker.dart';
+import 'package:intl/intl.dart';
 
 class FormPart extends StatelessWidget {
-    const FormPart({
-        super.key,
-        required this.isLoading,
-        required this.model,
-        required this.formKey,
-    });
+  const FormPart({
+    super.key,
+    required this.isLoading,
+    required this.model,
+    required this.formKey,
+    required this.jenisCuti,
+  });
 
-    final bool isLoading;
-    final Cuti model;
-    final GlobalKey<FormBuilderState> formKey;
+  final bool isLoading;
+  final Cuti model;
+  final List<dynamic> jenisCuti;
+  final GlobalKey<FormBuilderState> formKey;
 
-    @override
-    Widget build(BuildContext context) {
-        return FormBuilder(
-            key: formKey,
-            child: Column(children: [
-                FormBuilderTextField(
-                    name: 'cuti_id',
-                    initialValue: model.cutiId,
-                    decoration: CustomInputDecoration().floating('cuti_id'),
+  @override
+  Widget build(BuildContext context) {
+    return FormBuilder(
+      key: formKey,
+      child: Column(children: [
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderDropdown(
+            name: 'jenis_absensi_id',
+            initialValue: model.jenisAbsensiNama,
+            decoration: CustomInputDecoration().floating('Jenis Absensi'),
+            items: List.generate(jenisCuti.length, (index) {
+              return DropdownMenuItem(
+                value: jenisCuti[index]['jenis_absensi_id'],
+                child: Text('${jenisCuti[index]['jenis_absensi_nama']}'),
+              );
+            }),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderDateTimePicker(
+            name: 'cuti_dari',
+            initialValue: model.cutiTanggalMulai,
+            format: DateFormat('EEEE, d MMMM y', 'ID'),
+            decoration: CustomInputDecoration().floating('Mulai').copyWith(
+                  suffixIcon: const Icon(Icons.date_range_rounded),
+                  hintText: "Tanggal Mulai",
                 ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'cuti_nomor',
-                    initialValue: model.cutiNomor,
-                    decoration: CustomInputDecoration().floating('cuti_nomor'),
+            inputType: InputType.date,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderDateTimePicker(
+            name: 'cuti_sampai',
+            initialValue: model.cutiTanggalSampai,
+            format: DateFormat('EEEE, d MMMM y', 'ID'),
+            decoration: CustomInputDecoration().floating('Sampai').copyWith(
+                  suffixIcon: const Icon(Icons.date_range_rounded),
+                  hintText: "Tanggal Sampai",
                 ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'cuti_tanggal',
-                    initialValue: model.cutiTanggal,
-                    decoration: CustomInputDecoration().floating('cuti_tanggal'),
+            inputType: InputType.date,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderTextField(
+            name: 'cuti_keperluan',
+            minLines: 2,
+            maxLines: 3,
+            initialValue: model.cutiKeperluan,
+            decoration: CustomInputDecoration().floating('Keperluan').copyWith(hintText: 'Deskripsikan keperluan kamu.'),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+          padding: const EdgeInsets.only(top: 20),
+          child: FormBuilderFilePicker(
+            name: "cuti_bukti",
+            decoration: CustomInputDecoration().floating('Bukti'),
+            maxFiles: 1,
+            previewImages: true,
+            onChanged: (val) => print(val),
+            typeSelectors: const [
+              TypeSelector(
+                type: FileType.any,
+                selector: Row(
+                  children: <Widget>[
+                    Icon(Icons.add_circle),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text("tambahkan dokumen bukti"),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'jenis_absensi_nama',
-                    initialValue: model.jenisAbsensiNama,
-                    decoration: CustomInputDecoration().floating('jenis_absensi_nama'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'periode',
-                    initialValue: model.periode,
-                    decoration: CustomInputDecoration().floating('periode'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'cuti_keperluan',
-                    initialValue: model.cutiKeperluan,
-                    decoration: CustomInputDecoration().floating('cuti_keperluan'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'cuti_status',
-                    initialValue: model.cutiStatus,
-                    decoration: CustomInputDecoration().floating('cuti_status'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'cuti_alasan_penolakan',
-                    initialValue: model.cutiAlasanPenolakan,
-                    decoration: CustomInputDecoration().floating('cuti_alasan_penolakan'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'cuti_bukti',
-                    initialValue: model.cutiBukti,
-                    decoration: CustomInputDecoration().floating('cuti_bukti'),
-                ),
-                const SizedBox(height: 16),
-                FormBuilderTextField(
-                    name: 'cuti_file',
-                    initialValue: model.cutiFile,
-                    decoration: CustomInputDecoration().floating('cuti_file'),
-                ),
-                const SizedBox(height: 16),
-            ]),
-        );
-    }
+              ),
+            ],
+            onFileLoading: (val) {
+              print(val);
+            },
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            context.read<CutiAddCubit>().execute();
+          },
+          child: Text('Kirim Pengajuan Cuti'),
+        ),
+      ]),
+    );
+  }
 }

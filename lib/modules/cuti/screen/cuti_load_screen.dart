@@ -82,7 +82,13 @@ class CutiLoadScreen extends StatelessWidget {
               MaterialPageRoute(builder: (context) => CutiAddScreen(model: Cuti())),
             );
           },
-          label: const Text('Pengajuan Cuti'),
+          backgroundColor: ColorSchema.primaryColor,
+          label: Text(
+            'Pengajuan Cuti',
+            style: GoogleFonts.nunito(
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );
