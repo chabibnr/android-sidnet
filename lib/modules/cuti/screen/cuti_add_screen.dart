@@ -48,6 +48,7 @@ class CutiAddScreen extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(8),
                     child: FormPart(
+                      isUpdate: false,
                       isLoading: state.isLoading,
                       model: data,
                       formKey: state.formKey,

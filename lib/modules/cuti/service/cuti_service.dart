@@ -12,7 +12,9 @@ abstract class CutiService extends ChopperService {
   });
 
   @Post(path: '/detailcuti', optionalBody: true)
-  Future<Response> view();
+  Future<Response> view({
+    @Field('cuti_id') required String id,
+  });
 
   @Post(
     path: '/simpancuti',
@@ -25,7 +27,7 @@ abstract class CutiService extends ChopperService {
     @Part('tgl_dari') required String since,
     @Part('tgl_sampai') required String until,
     @Part('keperluan') required String keperluan,
-    @PartFile('file') required String filePath,
+    @PartFile('file') required String? filePath,
   });
 
   @Post(path: '/updatecuti', optionalBody: true)

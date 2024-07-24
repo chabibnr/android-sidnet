@@ -26,7 +26,7 @@ class CutiUpdateScreen extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("CutiUpdate Screen Title"),
+          title: const Text("Edit data cuti"),
         ),
         backgroundColor: Colors.transparent,
         body: BlocProvider(
@@ -48,10 +48,11 @@ class CutiUpdateScreen extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(8),
                     child: FormPart(
+                      isUpdate: true,
                       isLoading: state.isLoading,
                       model: data,
                       formKey: state.formKey,
-                      jenisCuti: [],
+                      jenisCuti: state.jenisCuti,
                     ),
                   ),
                 );

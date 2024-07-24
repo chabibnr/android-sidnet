@@ -39,12 +39,14 @@ final class _$CutiService extends CutiService {
   }
 
   @override
-  Future<Response<dynamic>> view() {
+  Future<Response<dynamic>> view({required String id}) {
     final Uri $url = Uri.parse('mobile/detailcuti');
+    final $body = <String, dynamic>{'cuti_id': id};
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
+      body: $body,
     );
     return client.send<dynamic, dynamic>($request);
   }
@@ -56,7 +58,7 @@ final class _$CutiService extends CutiService {
     required String since,
     required String until,
     required String keperluan,
-    required String filePath,
+    required String? filePath,
   }) {
     final Uri $url = Uri.parse('mobile/simpancuti');
     final Map<String, String> $headers = {
@@ -83,7 +85,7 @@ final class _$CutiService extends CutiService {
         'keperluan',
         keperluan,
       ),
-      PartValueFile<String>(
+      PartValueFile<String?>(
         'file',
         filePath,
       ),

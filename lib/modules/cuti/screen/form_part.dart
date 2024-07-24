@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 class FormPart extends StatelessWidget {
   const FormPart({
     super.key,
+    required this.isUpdate,
     required this.isLoading,
     required this.model,
     required this.formKey,
@@ -17,6 +18,7 @@ class FormPart extends StatelessWidget {
   });
 
   final bool isLoading;
+  final bool isUpdate;
   final Cuti model;
   final List<dynamic> jenisCuti;
   final GlobalKey<FormBuilderState> formKey;
@@ -116,7 +118,7 @@ class FormPart extends StatelessWidget {
           onPressed: () {
             context.read<CutiAddCubit>().execute();
           },
-          child: Text('Kirim Pengajuan Cuti'),
+          child: Text('${isUpdate ? 'Update' : 'Kirim'} Pengajuan Cuti'),
         ),
       ]),
     );

@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cuti.g.dart';
@@ -88,8 +89,27 @@ class Cuti {
 
   bool get hasReason => cutiAlasanPenolakan != null && cutiAlasanPenolakan!.isNotEmpty;
 
-  DateTime? cutiTanggalMulai;
-  DateTime? cutiTanggalSampai;
+  set cutiTanggalMulai(DateTime? value) {
+    cutiDari = value != null ? DateFormat("yyyy-MM-dd").format(value) : null;
+  }
+
+  DateTime? get cutiTanggalMulai {
+    if (cutiDari != null) {
+      return DateTime.parse(cutiDari!);
+    }
+    return null;
+  }
+
+  set cutiTanggalSampai(DateTime? value) {
+    cutiSampai = value != null ? DateFormat("yyyy-MM-dd").format(value) : null;
+  }
+
+  DateTime? get cutiTanggalSampai {
+    if (cutiSampai != null) {
+      return DateTime.parse(cutiSampai!);
+    }
+    return null;
+  }
 
   Cuti({
     this.respError,
