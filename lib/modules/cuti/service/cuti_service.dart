@@ -20,11 +20,11 @@ abstract class CutiService extends ChopperService {
   )
   @multipart
   Future<Response> add({
-    @Field('pegawai_id') required String pegawaiId,
-    @Field('janis_absensi_id') required String jenisCutiId,
-    @Field('tgl_dari') required String since,
-    @Field('tgl_sampai') required String until,
-    @Field('keperluan') required String keperluan,
+    @Part('pegawai_id') required String pegawaiId,
+    @Part('jenis_absensi_id') required String jenisCutiId,
+    @Part('tgl_dari') required String since,
+    @Part('tgl_sampai') required String until,
+    @Part('keperluan') required String keperluan,
     @PartFile('file') required String filePath,
   });
 

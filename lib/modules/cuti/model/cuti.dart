@@ -27,7 +27,7 @@ class CutiList {
 @JsonSerializable()
 class Cuti {
   @JsonKey(name: "resp_error")
-  String? respError;
+  bool? respError;
 
   @JsonKey(name: "resp_msg")
   String? respMsg;

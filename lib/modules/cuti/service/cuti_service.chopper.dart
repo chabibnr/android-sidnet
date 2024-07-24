@@ -62,25 +62,36 @@ final class _$CutiService extends CutiService {
     final Map<String, String> $headers = {
       'Content-Type': 'multipart/formdata',
     };
-    final $body = <String, dynamic>{
-      'pegawai_id': pegawaiId,
-      'janis_absensi_id': jenisCutiId,
-      'tgl_dari': since,
-      'tgl_sampai': until,
-      'keperluan': keperluan,
-    };
-    print($body);
     final List<PartValue> $parts = <PartValue>[
+      PartValue<String>(
+        'pegawai_id',
+        pegawaiId,
+      ),
+      PartValue<String>(
+        'jenis_absensi_id',
+        jenisCutiId,
+      ),
+      PartValue<String>(
+        'tgl_dari',
+        since,
+      ),
+      PartValue<String>(
+        'tgl_sampai',
+        until,
+      ),
+      PartValue<String>(
+        'keperluan',
+        keperluan,
+      ),
       PartValueFile<String>(
         'file',
         filePath,
-      )
+      ),
     ];
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
-      body: $body,
       parts: $parts,
       multipart: true,
       headers: $headers,

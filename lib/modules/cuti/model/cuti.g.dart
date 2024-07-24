@@ -21,7 +21,7 @@ Map<String, dynamic> _$CutiListToJson(CutiList instance) => <String, dynamic>{
     };
 
 Cuti _$CutiFromJson(Map<String, dynamic> json) => Cuti(
-      respError: json['resp_error'] as String?,
+      respError: json['resp_error'] as bool?,
       respMsg: json['resp_msg'] as String?,
       cutiId: json['cuti_id'] as String?,
       pegawaiId: json['pegawai_id'] as String?,

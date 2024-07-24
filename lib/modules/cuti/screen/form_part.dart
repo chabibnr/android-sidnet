@@ -31,7 +31,7 @@ class FormPart extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20),
           child: FormBuilderDropdown(
             name: 'jenis_absensi_id',
-            initialValue: model.jenisAbsensiNama,
+            initialValue: model.jenisAbsensiId,
             decoration: CustomInputDecoration().floating('Jenis Absensi'),
             items: List.generate(jenisCuti.length, (index) {
               return DropdownMenuItem(

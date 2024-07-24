@@ -24,9 +24,6 @@ class CutiViewScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Detail Cuti"),
-        ),
         body: BlocProvider(
           create: (context) => CutiViewCubit()..load(model),
           child: BlocConsumer<CutiViewCubit, CutiViewState>(
@@ -42,17 +39,34 @@ class CutiViewScreen extends StatelessWidget {
               }
               final data = state.data;
               if (data != null) {
-                return Card(
-                  child: Container(
-                    padding: EdgeInsets.all(16.0),
-                    child: ListView(
+                return Scaffold(
+                  appBar: AppBar(
+                    title: const Text("Detail Cuti"),
+                    actions: [
+                      IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever)),
+                    ],
+                  ),
+                  body: Card(
+                    child: Container(
+                      padding: EdgeInsets.all(16.0),
+                      child: ListView(
+                        children: [
+                          InfoRow(label: "No Pengajuan", value: "${model.cutiNomor}"),
+                          InfoRow(label: "Tanggal", value: "${model.cutiTanggal}"),
+                          InfoRow(label: "Periode", value: "${model.periode}"),
+                          InfoRow(label: "Keperluan", value: "${model.cutiKeperluan}"),
+                          InfoRow(label: "Status", value: "${model.cutiStatus}"),
+                          InfoRow(label: "Alasan Penolakan", value: "${model.cutiAlasanPenolakan}"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  bottomSheet: Container(
+                    child: Row(
                       children: [
-                        InfoRow(label: "No Pengajuan", value: "${model.cutiNomor}"),
-                        InfoRow(label: "Tanggal", value: "${model.cutiTanggal}"),
-                        InfoRow(label: "Periode", value: "${model.periode}"),
-                        InfoRow(label: "Keperluan", value: "${model.cutiKeperluan}"),
-                        InfoRow(label: "Status", value: "${model.cutiStatus}"),
-                        InfoRow(label: "Alasan Penolakan", value: "${model.cutiAlasanPenolakan}"),
+                        OutlinedButton(onPressed: () {}, child: Text('Edit')),
+                        OutlinedButton(onPressed: () {}, child: Text('Edit')),
                       ],
                     ),
                   ),

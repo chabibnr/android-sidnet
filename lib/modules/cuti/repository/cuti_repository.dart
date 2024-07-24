@@ -40,6 +40,7 @@ class CutiRepository {
 
   Future<Cuti> add(Cuti model) async {
     try {
+      print(model.toJson());
       var response = await _service.add(
         pegawaiId: model.pegawaiId!,
         filePath: model.cutiFile!,
