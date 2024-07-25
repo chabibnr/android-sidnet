@@ -19,7 +19,6 @@ class CutiViewCubit extends Cubit<CutiViewState> {
       emit(state.copyWith(isLoading: true));
       var response = await _cutiRepository.view(model);
       emit(state.copyWith(isLoading: false, data: response));
-      log("After Emit data");
     } catch (e) {
       log(e.toString());
       log("Error emit data");

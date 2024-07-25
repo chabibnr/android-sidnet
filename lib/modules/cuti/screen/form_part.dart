@@ -93,6 +93,7 @@ class FormPart extends StatelessWidget {
             name: "cuti_bukti",
             decoration: CustomInputDecoration().floating('Bukti'),
             maxFiles: 1,
+            allowMultiple: false,
             previewImages: true,
             onChanged: (val) => print(val),
             typeSelectors: const [

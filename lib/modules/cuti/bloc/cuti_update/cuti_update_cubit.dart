@@ -26,6 +26,10 @@ class CutiUpdateCubit extends Cubit<CutiUpdateState> {
     }
   }
 
+  updateModel(Cuti model) {
+    emit(state.copyWith(data: model));
+  }
+
   execute() async {
     try {
       var response = await _cutiRepository.update(state.data!);

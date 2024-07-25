@@ -30,6 +30,10 @@ class CutiAddCubit extends Cubit<CutiAddState> {
     }
   }
 
+  updateModel(Cuti model) {
+    emit(state.copyWith(data: model));
+  }
+
   execute() async {
     try {
       if (state.formKey.currentState!.saveAndValidate()) {

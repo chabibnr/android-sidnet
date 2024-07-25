@@ -1,5 +1,5 @@
-import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:path/path.dart';
 
 part 'cuti.g.dart';
 
@@ -89,8 +89,16 @@ class Cuti {
 
   bool get hasReason => cutiAlasanPenolakan != null && cutiAlasanPenolakan!.isNotEmpty;
 
+/*
   set cutiTanggalMulai(DateTime? value) {
     cutiDari = value != null ? DateFormat("yyyy-MM-dd").format(value) : null;
+  } */
+
+  String get buktiFileName {
+    if (cutiBukti != null && cutiBukti!.isNotEmpty) {
+      return basename(cutiBukti!);
+    }
+    return '';
   }
 
   DateTime? get cutiTanggalMulai {
@@ -100,9 +108,10 @@ class Cuti {
     return null;
   }
 
+/*
   set cutiTanggalSampai(DateTime? value) {
     cutiSampai = value != null ? DateFormat("yyyy-MM-dd").format(value) : null;
-  }
+  } */
 
   DateTime? get cutiTanggalSampai {
     if (cutiSampai != null) {

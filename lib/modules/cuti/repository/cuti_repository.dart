@@ -27,7 +27,6 @@ class CutiRepository {
 
   Future<Cuti> view(Cuti model) async {
     try {
-      print(model.toJson());
       var response = await _service.view(id: model.cutiId!);
       if (response.statusCode == 401) {
         throw Error();

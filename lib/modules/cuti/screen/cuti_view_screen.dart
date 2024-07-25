@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:app/component/info_row.dart';
 import 'package:app/modules/cuti/bloc/cuti_view/cuti_view_cubit.dart';
 import 'package:app/modules/cuti/model/cuti.dart';
-import 'package:app/modules/cuti/screen/cuti_update_screen.dart';
 import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +42,7 @@ class CutiViewScreen extends StatelessWidget {
                 return Scaffold(
                   appBar: AppBar(
                     title: const Text("Detail Cuti"),
-                    actions: [
+                    /* actions: [
                       IconButton(
                           onPressed: () {
                             Navigator.push(
@@ -53,7 +52,7 @@ class CutiViewScreen extends StatelessWidget {
                           },
                           icon: Icon(Icons.edit)),
                       IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever)),
-                    ],
+                    ], */
                   ),
                   body: Card(
                     child: Container(
