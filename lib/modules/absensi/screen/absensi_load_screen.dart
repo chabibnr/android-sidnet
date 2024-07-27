@@ -1,12 +1,14 @@
 import 'dart:developer';
 
+import 'package:app/config/color_config.dart';
 import 'package:app/modules/absensi/bloc/absensi_load/absensi_load_cubit.dart';
 import 'package:app/modules/absensi/model/absensi.dart';
+import 'package:app/modules/absensi/screen/button_absensi.dart';
 import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import './absensi_add_screen.dart';
 import './absensi_view_screen.dart';
 
 part 'item.dart';
@@ -16,6 +18,7 @@ class AbsensiLoadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AbsensiLoadCubit>().load();
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
@@ -42,17 +45,24 @@ class AbsensiLoadScreen extends StatelessWidget {
             }
             final data = state.data;
             if (data != null) {
-              return ListView.builder(
-                itemCount: data.items?.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var row = data.items![index];
-                  return GestureDetector(
-                    onTap: () {
-                      viewDetail(context, row);
-                    },
-                    child: Item(model: row),
-                  );
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<AbsensiLoadCubit>().load();
                 },
+                child: ListView.builder(
+                  itemCount: data.items?.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var row = data.items![index];
+                    return GestureDetector(
+                      onTap: () {
+                        if (row.hasIn || row.hasOut) {
+                          viewDetail(context, row);
+                        }
+                      },
+                      child: Item(model: row),
+                    );
+                  },
+                ),
               );
             }
             return const Center(
@@ -60,15 +70,7 @@ class AbsensiLoadScreen extends StatelessWidget {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AbsensiAddScreen(model: Absensi())),
-            );
-          },
-          label: const Text('Add'),
-        ),
+        floatingActionButton: ButtonAbsensi(model: Absensi()),
       ),
     );
   }

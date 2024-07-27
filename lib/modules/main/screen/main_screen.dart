@@ -1,6 +1,6 @@
 import 'package:app/modules/absensi/model/absensi.dart';
-import 'package:app/modules/absensi/screen/absensi_add_screen.dart';
 import 'package:app/modules/absensi/screen/absensi_widget_screen.dart';
+import 'package:app/modules/absensi/screen/button_absensi.dart';
 import 'package:app/modules/main/bloc/main_cubit.dart';
 import 'package:app/modules/main/screen/header_section.dart';
 import 'package:app/modules/main/screen/service_section.dart';
@@ -78,26 +78,7 @@ class MainScreen extends StatelessWidget {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButton.extended(
-              extendedPadding: EdgeInsets.symmetric(horizontal: 24),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AbsensiAddScreen(model: Absensi())),
-                );
-              },
-              label: Text(
-                "Absensi Masuk",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              backgroundColor: ColorSchema.primaryColor,
-              icon: const Icon(
-                Icons.camera_alt_outlined,
-                color: Colors.white,
-              ),
-            ),
+            floatingActionButton: ButtonAbsensi(model: Absensi()),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
           );
         },

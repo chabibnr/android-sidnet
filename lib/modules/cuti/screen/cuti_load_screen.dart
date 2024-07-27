@@ -18,6 +18,7 @@ class CutiLoadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<CutiLoadCubit>().load();
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
@@ -55,17 +56,22 @@ class CutiLoadScreen extends StatelessWidget {
                   ),
                 );
               }
-              return ListView.builder(
-                  itemCount: data.items?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var row = data.items![index];
-                    return GestureDetector(
-                      onTap: () {
-                        viewDetail(context, row);
-                      },
-                      child: Item(model: row),
-                    );
-                  });
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<CutiLoadCubit>().load();
+                },
+                child: ListView.builder(
+                    itemCount: data.items?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var row = data.items![index];
+                      return GestureDetector(
+                        onTap: () {
+                          viewDetail(context, row);
+                        },
+                        child: Item(model: row),
+                      );
+                    }),
+              );
             }
             return const Center(
               child: Text('Error'),

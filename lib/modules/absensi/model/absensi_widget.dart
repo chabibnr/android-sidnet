@@ -39,6 +39,10 @@ class AbsensiWidget {
     this.absensiOut,
   });
 
+  bool get hasOut => absensiOut != null && absensiOut!.isNotEmpty;
+
+  bool get hasIn => absensiIn != null && absensiIn!.isNotEmpty;
+
   factory AbsensiWidget.fromJson(Map<String, dynamic> json) => _$AbsensiWidgetFromJson(json);
 
   Map<String, dynamic> toJson() => _$AbsensiWidgetToJson(this);

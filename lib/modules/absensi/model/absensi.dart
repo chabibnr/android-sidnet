@@ -119,6 +119,9 @@ class Absensi {
   }
 
   bool get showDescription {
+    if (absensiLibur == true && keterangan == 'LIBUR') {
+      return false;
+    }
     if ((jenisAbsensiNama != null && jenisAbsensiNama!.isNotEmpty) || (keterangan != null && keterangan!.isNotEmpty)) {
       return true;
     }
