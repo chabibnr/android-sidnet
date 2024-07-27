@@ -49,11 +49,15 @@ class HeaderSection extends StatelessWidget {
                         children: [
                           Text(
                             state.auth.nama,
-                            style: GoogleFonts.raleway(textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: ColorSchema.titleTextColor)),
+                            style: GoogleFonts.raleway(
+                              textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: ColorSchema.primaryColor),
+                            ),
                           ),
                           Text(
                             state.auth.jabatan,
-                            style: GoogleFonts.nunito(textStyle: const TextStyle(color: ColorSchema.subTitleTextColor, fontSize: 12)),
+                            style: GoogleFonts.nunito(
+                              textStyle: const TextStyle(color: Colors.white, fontSize: 12),
+                            ),
                           )
                         ],
                       ),
