@@ -22,6 +22,8 @@ Map<String, dynamic> _$AbsensiListToJson(AbsensiList instance) =>
     };
 
 Absensi _$AbsensiFromJson(Map<String, dynamic> json) => Absensi(
+      respError: json['resp_error'] as bool?,
+      respMsg: json['resp_msg'] as String?,
       absensiId: json['absensi_id'] as String?,
       absensiTanggal: json['absensi_tanggal'] as String?,
       absensiHari: json['absensi_hari'] as String?,
@@ -35,9 +37,16 @@ Absensi _$AbsensiFromJson(Map<String, dynamic> json) => Absensi(
       jenisAbsensiNama: json['jenis_absensi_nama'] as String?,
       keterangan: json['keterangan'] as String?,
       absensiLibur: json['absensi_libur'] as bool?,
+      pegawaiId: json['pegawai_id'] as String?,
+      lat: json['lat'] as String?,
+      long: json['long'] as String?,
+      foto: json['foto'] as String?,
     );
 
 Map<String, dynamic> _$AbsensiToJson(Absensi instance) => <String, dynamic>{
+      'resp_error': instance.respError,
+      'resp_msg': instance.respMsg,
+      'pegawai_id': instance.pegawaiId,
       'absensi_id': instance.absensiId,
       'absensi_tanggal': instance.absensiTanggal,
       'absensi_hari': instance.absensiHari,
@@ -50,5 +59,8 @@ Map<String, dynamic> _$AbsensiToJson(Absensi instance) => <String, dynamic>{
       'absensi_no_spl': instance.absensiNoSpl,
       'jenis_absensi_nama': instance.jenisAbsensiNama,
       'keterangan': instance.keterangan,
+      'foto': instance.foto,
+      'lat': instance.lat,
+      'long': instance.long,
       'absensi_libur': instance.absensiLibur,
     };

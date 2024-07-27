@@ -32,47 +32,44 @@ class PinjamanLoadScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
         ),
         backgroundColor: Colors.transparent,
-        body: BlocProvider(
-          create: (context) => PinjamanLoadCubit()..load(),
-          child: BlocConsumer<PinjamanLoadCubit, PinjamanLoadState>(
-            listener: (context, state) {
-              // TODO: implement listener
-            },
-            builder: (context, state) {
-              log("Reload ${state.isLoading}");
-              if (state.isLoading && state.data == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+        body: BlocConsumer<PinjamanLoadCubit, PinjamanLoadState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            log("Reload ${state.isLoading}");
+            if (state.isLoading && state.data == null) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final data = state.data;
+            if (data != null) {
+              if (data.items == null || data.items!.isEmpty) {
+                return Container(
+                  width: double.infinity,
+                  child: const EmptyScreen(
+                    title: "Tidak ada data SPL",
+                    subtitle: "",
+                  ),
                 );
               }
-              final data = state.data;
-              if (data != null) {
-                if (data.items == null || data.items!.isEmpty) {
-                  return Container(
-                    width: double.infinity,
-                    child: const EmptyScreen(
-                      title: "Tidak ada data SPL",
-                      subtitle: "",
-                    ),
-                  );
-                }
-                return ListView.builder(
-                    itemCount: data.items?.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var row = data.items![index];
-                      return GestureDetector(
-                        onTap: () {
-                          viewDetail(context, row);
-                        },
-                        child: Item(model: row),
-                      );
-                    });
-              }
-              return const Center(
-                child: Text('Error'),
-              );
-            },
-          ),
+              return ListView.builder(
+                  itemCount: data.items?.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var row = data.items![index];
+                    return GestureDetector(
+                      onTap: () {
+                        viewDetail(context, row);
+                      },
+                      child: Item(model: row),
+                    );
+                  });
+            }
+            return const Center(
+              child: Text('Error'),
+            );
+          },
         ),
       ),
     );

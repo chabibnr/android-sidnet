@@ -36,11 +36,7 @@ class _MainScreenState extends State<MainScreens> {
       appBar: isSmallScreen
           ? PreferredSize(
               preferredSize: const Size.fromHeight(80),
-              child: HeaderSection(
-                openDrawer: () {
-                  _key.currentState?.openDrawer();
-                },
-              ),
+              child: HeaderSection(),
             )
           : null,
     );
@@ -52,52 +48,61 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MainCubit, MainState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Container(
-            color: Colors.white70,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: const [
-                AbsensiWidgetScreen(),
-                ServicesSection(),
-              ],
-            ),
-          ),
-          appBar: true
-              ? PreferredSize(
-                  preferredSize: const Size.fromHeight(80),
-                  child: HeaderSection(
-                    openDrawer: () {},
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [ColorSchema.primaryColor, Colors.white],
+        ),
+      ),
+      child: BlocConsumer<MainCubit, MainState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Container(
+              color: Colors.transparent,
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const SizedBox(
+                    height: 70,
                   ),
-                )
-              : null,
-          floatingActionButton: FloatingActionButton.extended(
-            extendedPadding: EdgeInsets.symmetric(horizontal: 24),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AbsensiAddScreen(model: Absensi())),
-              );
-            },
-            label: Text(
-              "Absensi Masuk",
-              style: TextStyle(
+                  Image.asset(
+                    "assets/images/logo/logo.png",
+                    height: 100,
+                  ),
+                  AbsensiWidgetScreen(),
+                  ServicesSection(),
+                ],
+              ),
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              extendedPadding: EdgeInsets.symmetric(horizontal: 24),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AbsensiAddScreen(model: Absensi())),
+                );
+              },
+              label: Text(
+                "Absensi Masuk",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              backgroundColor: ColorSchema.primaryColor,
+              icon: const Icon(
+                Icons.camera_alt_outlined,
                 color: Colors.white,
               ),
             ),
-            backgroundColor: ColorSchema.primaryColor,
-            icon: const Icon(
-              Icons.camera_alt_outlined,
-              color: Colors.white,
-            ),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        );
-      },
-      listener: (context, state) {},
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          );
+        },
+        listener: (context, state) {},
+      ),
     );
   }
 }

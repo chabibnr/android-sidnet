@@ -50,7 +50,12 @@ class AbsensiRepository {
 
   Future<Absensi> add(Absensi model) async {
     try {
-      var response = await _service.add();
+      var response = await _service.add(
+        pegawaiId: model.pegawaiId!,
+        latitude: model.lat!,
+        longitude: model.long!,
+        photoPath: model.foto,
+      );
       if (response.statusCode == 401) {
         throw Error();
       }

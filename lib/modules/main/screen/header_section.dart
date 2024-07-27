@@ -1,3 +1,4 @@
+import 'package:app/bloc/root/root_cubit.dart';
 import 'package:app/modules/account/screen/account_screen.dart';
 import 'package:app/modules/main/bloc/main_cubit.dart';
 import 'package:app/utils/contstants.dart';
@@ -6,22 +7,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HeaderSection extends StatelessWidget {
-  final Function openDrawer;
-
-  const HeaderSection({super.key, required this.openDrawer});
+  const HeaderSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainCubit, MainState>(
       builder: (context, state) {
-        return Container(
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 50,
-              left: 10,
-              right: 16,
-            ),
+        return Padding(
+          padding: const EdgeInsets.only(
+            left: 10,
+            right: 10,
+          ),
+          child: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -29,25 +26,18 @@ class HeaderSection extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const AccountScreen()),
+                      MaterialPageRoute(builder: (context) => const AccountScreen()),
                     );
                   },
                   child: Row(
                     children: [
-                      InkWell(
-                        borderRadius: BorderRadius.circular(50),
-                        onTap: () {
-                          openDrawer();
-                        },
-                        child: state.auth.avatar.isEmpty
-                            ? Image.asset(
+                      CircleAvatar(
+                        backgroundImage: state.auth.avatar.isEmpty
+                            ? const AssetImage(
                                 "assets/images/avatar/user_profile.png",
-                                width: 60,
                               )
-                            : Image.network(
+                            : NetworkImage(
                                 state.auth.avatar,
-                                width: 60,
                               ),
                       ),
                       const SizedBox(
@@ -59,18 +49,11 @@ class HeaderSection extends StatelessWidget {
                         children: [
                           Text(
                             state.auth.nama,
-                            style: GoogleFonts.raleway(
-                                textStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: ColorSchema.titleTextColor)),
+                            style: GoogleFonts.raleway(textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: ColorSchema.titleTextColor)),
                           ),
                           Text(
                             state.auth.jabatan,
-                            style: GoogleFonts.nunito(
-                                textStyle: const TextStyle(
-                                    color: ColorSchema.subTitleTextColor,
-                                    fontSize: 16)),
+                            style: GoogleFonts.nunito(textStyle: const TextStyle(color: ColorSchema.subTitleTextColor, fontSize: 12)),
                           )
                         ],
                       ),
@@ -79,32 +62,18 @@ class HeaderSection extends StatelessWidget {
                 ),
                 InkWell(
                   borderRadius: BorderRadius.circular(50),
-                  onTap: () {},
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.blue.shade50.withOpacity(0.5)),
-                        child: const Icon(
-                          Icons.notifications_outlined,
-                          color: ColorSchema.primaryColor,
-                          size: 30,
-                        ),
-                      ),
-                      Positioned(
-                          right: 14,
-                          top: 14,
-                          child: Container(
-                            width: 5,
-                            height: 5,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: Colors.red),
-                          ))
-                    ],
+                  onTap: () {
+                    context.read<RootCubit>().confirmAuthDestroy();
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue.shade50.withOpacity(0.5)),
+                    child: const Icon(
+                      Icons.settings_power_sharp,
+                      color: Colors.red,
+                      size: 30,
+                    ),
                   ),
                 )
               ],

@@ -27,6 +27,15 @@ class AbsensiList {
 
 @JsonSerializable()
 class Absensi {
+  @JsonKey(name: "resp_error")
+  bool? respError;
+
+  @JsonKey(name: "resp_msg")
+  String? respMsg;
+
+  @JsonKey(name: "pegawai_id")
+  String? pegawaiId;
+
   @JsonKey(name: "absensi_id")
   String? absensiId;
 
@@ -63,10 +72,20 @@ class Absensi {
   @JsonKey(name: "keterangan")
   String? keterangan;
 
+  @JsonKey(name: "foto")
+  String? foto;
+
+  @JsonKey(name: "lat")
+  String? lat;
+  @JsonKey(name: "long")
+  String? long;
+
   @JsonKey(name: "absensi_libur")
   bool? absensiLibur;
 
   Absensi({
+    this.respError,
+    this.respMsg,
     this.absensiId,
     this.absensiTanggal,
     this.absensiHari,
@@ -80,6 +99,10 @@ class Absensi {
     this.jenisAbsensiNama,
     this.keterangan,
     this.absensiLibur,
+    this.pegawaiId,
+    this.lat,
+    this.long,
+    this.foto,
   });
 
   bool get hasOut => absensiOut != null && absensiOut!.isNotEmpty;

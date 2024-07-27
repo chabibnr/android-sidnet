@@ -19,8 +19,17 @@ abstract class AbsensiService extends ChopperService {
   @Post(path: '/view', optionalBody: true)
   Future<Response> view();
 
-  @Post(path: '/add', optionalBody: true)
-  Future<Response> add();
+  @Post(
+    path: '/prosesabsen',
+    headers: {"Content-Type": "multipart/formdata"},
+  )
+  @multipart
+  Future<Response> add({
+    @Part('pegawai_id') required String pegawaiId,
+    @Part('lat') required String latitude,
+    @Part('long') required String longitude,
+    @PartFile('foto') required String? photoPath,
+  });
 
   @Post(path: '/update', optionalBody: true)
   Future<Response> update();

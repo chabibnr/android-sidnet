@@ -26,6 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
       state.copyWith(
         username: UsernameInput.dirty(value: value),
         usernameError: false,
+        status: FormzSubmissionStatus.initial,
       ),
     );
   }
@@ -35,6 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
       state.copyWith(
         password: PasswordInput.dirty(value: value),
         passwordError: false,
+        status: FormzSubmissionStatus.initial,
       ),
     );
   }
@@ -61,8 +63,7 @@ class AuthCubit extends Cubit<AuthState> {
         status: FormzSubmissionStatus.inProgress,
       ));
       try {
-        var login = await _authRepository.login(
-            state.username.value, state.password.value);
+        var login = await _authRepository.login(state.username.value, state.password.value);
 
         App.I.session
           ..setToken(login.username ?? '')

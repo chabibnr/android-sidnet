@@ -29,39 +29,36 @@ class AbsensiLoadScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Data Absensi"),
         ),
-        body: BlocProvider(
-          create: (context) => AbsensiLoadCubit()..load(),
-          child: BlocConsumer<AbsensiLoadCubit, AbsensiLoadState>(
-            listener: (context, state) {
-              // TODO: implement listener
-            },
-            builder: (context, state) {
-              log("Reload ${state.isLoading}");
-              if (state.isLoading && state.data == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final data = state.data;
-              if (data != null) {
-                return ListView.builder(
-                  itemCount: data.items?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var row = data.items![index];
-                    return GestureDetector(
-                      onTap: () {
-                        viewDetail(context, row);
-                      },
-                      child: Item(model: row),
-                    );
-                  },
-                );
-              }
+        body: BlocConsumer<AbsensiLoadCubit, AbsensiLoadState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            log("Reload ${state.isLoading}");
+            if (state.isLoading && state.data == null) {
               return const Center(
-                child: Text('Error'),
+                child: CircularProgressIndicator(),
               );
-            },
-          ),
+            }
+            final data = state.data;
+            if (data != null) {
+              return ListView.builder(
+                itemCount: data.items?.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var row = data.items![index];
+                  return GestureDetector(
+                    onTap: () {
+                      viewDetail(context, row);
+                    },
+                    child: Item(model: row),
+                  );
+                },
+              );
+            }
+            return const Center(
+              child: Text('Error'),
+            );
+          },
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {

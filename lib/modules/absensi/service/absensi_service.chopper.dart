@@ -63,12 +63,41 @@ final class _$AbsensiService extends AbsensiService {
   }
 
   @override
-  Future<Response<dynamic>> add() {
-    final Uri $url = Uri.parse('mobile/add');
+  Future<Response<dynamic>> add({
+    required String pegawaiId,
+    required String latitude,
+    required String longitude,
+    required String? photoPath,
+  }) {
+    final Uri $url = Uri.parse('mobile/prosesabsen');
+    final Map<String, String> $headers = {
+      'Content-Type': 'multipart/formdata',
+    };
+    final List<PartValue> $parts = <PartValue>[
+      PartValue<String>(
+        'pegawai_id',
+        pegawaiId,
+      ),
+      PartValue<String>(
+        'lat',
+        latitude,
+      ),
+      PartValue<String>(
+        'long',
+        longitude,
+      ),
+      PartValueFile<String?>(
+        'foto',
+        photoPath,
+      ),
+    ];
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
+      parts: $parts,
+      multipart: true,
+      headers: $headers,
     );
     return client.send<dynamic, dynamic>($request);
   }

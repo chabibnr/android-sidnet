@@ -75,23 +75,40 @@ class ServicesSection extends StatelessWidget {
                 Container(
                   width: 100,
                   height: 100,
-                  decoration: BoxDecoration(color: serviceColor, borderRadius: BorderRadius.circular(16)),
-                ),
-                ImageIcon(
-                  AssetImage(
-                    serviceIcon,
+                  decoration: BoxDecoration(
+                    color: serviceColor,
+                    borderRadius: BorderRadius.circular(16),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.white, serviceImageColor.withOpacity(.4)],
+                    ),
                   ),
-                  color: serviceImageColor,
-                  size: 45,
+                ),
+                Positioned(
+                  top: 15,
+                  child: ImageIcon(
+                    AssetImage(
+                      serviceIcon,
+                    ),
+                    color: serviceImageColor,
+                    size: 45,
+                  ),
+                ),
+                Positioned(
+                  bottom: 9,
+                  child: Text(
+                    service.toUpperCase(),
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.035, fontWeight: FontWeight.bold),
+                      color: serviceImageColor,
+                    ),
+                  ),
                 )
               ]),
               const SizedBox(
                 height: 5,
               ),
-              Text(
-                service.toUpperCase(),
-                style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.035)),
-              )
             ],
           )
         ],
