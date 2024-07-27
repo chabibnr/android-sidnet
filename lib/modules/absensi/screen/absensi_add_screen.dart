@@ -3,12 +3,14 @@ import 'dart:io';
 
 import 'package:app/helper/form_state.dart';
 import 'package:app/modules/absensi/bloc/absensi_add/absensi_add_cubit.dart';
+import 'package:app/modules/absensi/bloc/absensi_widget/absensi_widget_cubit.dart';
 import 'package:app/modules/absensi/model/absensi.dart';
 import 'package:app/utils/contstants.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AbsensiAddScreen extends StatelessWidget {
@@ -78,6 +80,61 @@ class AbsensiAddScreen extends StatelessWidget {
           listener: (context, state) {
             if (state.position == null) {
               _determinePosition(context);
+            }
+            if (state.status == SubmitStatus.success) {
+              context.read<AbsensiWidgetCubit>().load();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Sukses',
+                        style: GoogleFonts.nunito(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        'Absensi telah terkirim.',
+                        style: GoogleFonts.nunito(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+              Navigator.of(context).pop();
+            } else if (state.status == SubmitStatus.failure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Gagal',
+                        style: GoogleFonts.nunito(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        state.message,
+                        style: GoogleFonts.nunito(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             }
           },
           builder: (context, state) {

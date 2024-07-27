@@ -46,8 +46,12 @@ class AbsensiAddCubit extends Cubit<AbsensiAddState> {
       );
       emit(state.copyWith(status: SubmitStatus.progress));
       var response = await _absensiRepository.add(model);
+      if (response.respError == false) {
+        emit(state.copyWith(status: SubmitStatus.success, data: response));
+      } else {
+        emit(state.copyWith(status: SubmitStatus.failure, message: response.respMsg, data: response));
+      }
 
-      emit(state.copyWith(isLoading: false, data: response));
       log("After Emit data");
     } catch (e) {
       log(e.toString());

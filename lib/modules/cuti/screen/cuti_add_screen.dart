@@ -26,7 +26,7 @@ class CutiAddScreen extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("CutiAdd Screen Title"),
+          title: const Text("Pengajuan Cuti"),
         ),
         backgroundColor: Colors.transparent,
         body: BlocProvider(

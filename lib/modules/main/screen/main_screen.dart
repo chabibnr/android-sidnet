@@ -1,3 +1,4 @@
+import 'package:app/modules/absensi/bloc/absensi_widget/absensi_widget_cubit.dart';
 import 'package:app/modules/absensi/model/absensi.dart';
 import 'package:app/modules/absensi/screen/absensi_widget_screen.dart';
 import 'package:app/modules/absensi/screen/button_absensi.dart';
@@ -63,19 +64,24 @@ class MainScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             body: Container(
               color: Colors.transparent,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const SizedBox(
-                    height: 70,
-                  ),
-                  Image.asset(
-                    "assets/images/logo/logo.png",
-                    height: 100,
-                  ),
-                  AbsensiWidgetScreen(),
-                  ServicesSection(),
-                ],
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  context.read<AbsensiWidgetCubit>().load();
+                },
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    Image.asset(
+                      "assets/images/logo/logo.png",
+                      height: 100,
+                    ),
+                    AbsensiWidgetScreen(),
+                    ServicesSection(),
+                  ],
+                ),
               ),
             ),
             floatingActionButton: ButtonAbsensi(model: Absensi()),

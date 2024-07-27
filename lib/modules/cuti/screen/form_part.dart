@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_file_picker/form_builder_file_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class FormPart extends StatelessWidget {
@@ -34,7 +35,7 @@ class FormPart extends StatelessWidget {
           child: FormBuilderDropdown(
             name: 'jenis_absensi_id',
             initialValue: model.jenisAbsensiId,
-            decoration: CustomInputDecoration().floating('Jenis Absensi'),
+            decoration: CustomInputDecoration().floating('Pilih Keperluan'),
             items: List.generate(jenisCuti.length, (index) {
               return DropdownMenuItem(
                 value: jenisCuti[index]['jenis_absensi_id'],
@@ -92,7 +93,7 @@ class FormPart extends StatelessWidget {
           child: FormBuilderFilePicker(
             name: "cuti_bukti",
             decoration: CustomInputDecoration().floating('Bukti'),
-            maxFiles: 1,
+            //maxFiles: 1,
             allowMultiple: false,
             previewImages: true,
             onChanged: (val) => print(val),
@@ -115,11 +116,18 @@ class FormPart extends StatelessWidget {
             },
           ),
         ),
-        ElevatedButton(
+        const SizedBox(height: 50),
+        ElevatedButton.icon(
+          icon: const Icon(Icons.send),
           onPressed: () {
             context.read<CutiAddCubit>().execute();
           },
-          child: Text('${isUpdate ? 'Update' : 'Kirim'} Pengajuan Cuti'),
+          label: Text(
+            '${isUpdate ? 'Update' : 'Kirim'} Pengajuan Cuti',
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+            ),
+          ),
         ),
       ]),
     );

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:app/modules/absensi/model/absensi.dart';
+import 'package:app/app.dart';
 import 'package:app/modules/absensi/model/absensi_widget.dart';
 import 'package:app/modules/absensi/repository/absensi_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -17,7 +17,8 @@ class AbsensiWidgetCubit extends Cubit<AbsensiWidgetState> {
 
   load() async {
     try {
-      var response = await _absensiRepository.widget('1');
+      emit(state.copyWith(isLoading: true));
+      var response = await _absensiRepository.widget(App.I.session.getAuthData()!.pegawaiId);
       emit(state.copyWith(isLoading: false, data: response));
       log("After Emit data");
     } catch (e) {
