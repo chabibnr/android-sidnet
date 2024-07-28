@@ -6,6 +6,7 @@ import 'package:app/modules/spl/model/spl.dart';
 import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import './spl_add_screen.dart';
 import './spl_view_screen.dart';
@@ -31,6 +32,21 @@ class SplLoadScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Pengajuan Lembur"),
           backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SplAddScreen(model: Spl())),
+                );
+              },
+              tooltip: "Pengajuan lembur baru",
+              icon: const Icon(
+                Icons.add_circle_outline,
+                size: 40,
+              ),
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
         body: RefreshIndicator(
@@ -63,7 +79,7 @@ class SplLoadScreen extends StatelessWidget {
                       var row = data.items![index];
                       return GestureDetector(
                         onTap: () {
-                          viewDetail(context, row);
+                          //viewDetail(context, row);
                         },
                         child: Item(model: row),
                       );
@@ -74,15 +90,6 @@ class SplLoadScreen extends StatelessWidget {
               );
             },
           ),
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SplAddScreen(model: Spl())),
-            );
-          },
-          label: const Text('Add'),
         ),
       ),
     );

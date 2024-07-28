@@ -1,11 +1,11 @@
 import 'package:app/component/custom_input_decoration.dart';
-import 'package:app/helper/form_state.dart';
 import 'package:app/modules/spl/bloc/spl_add/spl_add_cubit.dart';
 import 'package:app/modules/spl/model/spl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class FormPart extends StatelessWidget {
@@ -68,11 +68,28 @@ class FormPart extends StatelessWidget {
             validator: FormBuilderValidators.compose([FormBuilderValidators.required()]),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            context.read<SplAddCubit>().execute();
-          },
-          child: context.read<SplAddCubit>().state.status == SubmitStatus.progress ? CircularProgressIndicator() : Text('Kirim'),
+        SizedBox(
+          height: 50,
+        ),
+        ElevatedButton.icon(
+          icon: isLoading
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(),
+                )
+              : const Icon(Icons.send),
+          onPressed: isLoading
+              ? null
+              : () {
+                  context.read<SplAddCubit>().execute();
+                },
+          label: Text(
+            isLoading ? 'Mengirim pengajuan...' : 'Kirim Pengajuan Lembut',
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+            ),
+          ),
         ),
       ]),
     );
