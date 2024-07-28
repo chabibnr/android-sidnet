@@ -17,6 +17,7 @@ class PinjamanLoadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<PinjamanLoadCubit>().load();
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
