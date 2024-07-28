@@ -32,6 +32,21 @@ class CutiLoadScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Permintaan Cuti"),
           backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CutiAddScreen(model: Cuti())),
+                );
+              },
+              tooltip: "Pengajuan cuti baru",
+              icon: const Icon(
+                Icons.add_circle_outline,
+                size: 40,
+              ),
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
         body: BlocConsumer<CutiLoadCubit, CutiLoadState>(
@@ -77,21 +92,6 @@ class CutiLoadScreen extends StatelessWidget {
               child: Text('Error'),
             );
           },
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CutiAddScreen(model: Cuti())),
-            );
-          },
-          backgroundColor: ColorSchema.primaryColor,
-          label: Text(
-            'Pengajuan Cuti',
-            style: GoogleFonts.nunito(
-              color: Colors.white,
-            ),
-          ),
         ),
       ),
     );

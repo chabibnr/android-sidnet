@@ -39,13 +39,11 @@ class CutiAddCubit extends Cubit<CutiAddState> {
       if (state.formKey.currentState!.saveAndValidate()) {
         PlatformFile attachment = state.formKey.currentState?.fields['cuti_bukti']?.value[0];
         DateTime dari = state.formKey.currentState?.fields['cuti_dari']?.value;
-        print(dari);
         DateTime sampai = state.formKey.currentState?.fields['cuti_sampai']?.value;
-        print(sampai);
         String jenis_absensi_id = state.formKey.currentState?.fields['jenis_absensi_id']?.value;
         String keperluan = state.formKey.currentState?.fields['cuti_keperluan']?.value;
 
-        print(attachment);
+        emit(state.copyWith(status: SubmitStatus.progress));
         var model = Cuti(
           pegawaiId: App.I.session.getAuthData()!.pegawaiId,
           cutiDari: DateFormat("yyyy-MM-dd").format(dari),
@@ -54,7 +52,13 @@ class CutiAddCubit extends Cubit<CutiAddState> {
           cutiKeperluan: keperluan,
           cutiFile: attachment.path,
         );
+        emit(state.copyWith(status: SubmitStatus.progress));
         var response = await _cutiRepository.add(model);
+        if (response.respError == false) {
+          emit(state.copyWith(status: SubmitStatus.success));
+        } else {
+          emit(state.copyWith(status: SubmitStatus.failure, message: response.respMsg));
+        }
       }
       //var response = await _cutiRepository.add(state.data!);
       //emit(state.copyWith(isLoading: false, data: response));

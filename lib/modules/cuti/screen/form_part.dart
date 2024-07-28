@@ -118,12 +118,20 @@ class FormPart extends StatelessWidget {
         ),
         const SizedBox(height: 50),
         ElevatedButton.icon(
-          icon: const Icon(Icons.send),
-          onPressed: () {
-            context.read<CutiAddCubit>().execute();
-          },
+          icon: isLoading
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(),
+                )
+              : const Icon(Icons.send),
+          onPressed: isLoading
+              ? null
+              : () {
+                  context.read<CutiAddCubit>().execute();
+                },
           label: Text(
-            '${isUpdate ? 'Update' : 'Kirim'} Pengajuan Cuti',
+            isLoading ? 'Mengirim pengajuan...' : '${isUpdate ? 'Update' : 'Kirim'} Pengajuan Cuti',
             style: GoogleFonts.nunito(
               fontSize: 18,
             ),

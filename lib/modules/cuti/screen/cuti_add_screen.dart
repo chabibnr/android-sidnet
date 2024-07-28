@@ -1,10 +1,13 @@
 import 'dart:developer';
 
+import 'package:app/helper/form_state.dart';
 import 'package:app/modules/cuti/bloc/cuti_add/cuti_add_cubit.dart';
+import 'package:app/modules/cuti/bloc/cuti_load/cuti_load_cubit.dart';
 import 'package:app/modules/cuti/model/cuti.dart';
 import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'form_part.dart';
 
@@ -33,7 +36,61 @@ class CutiAddScreen extends StatelessWidget {
           create: (context) => CutiAddCubit()..load(model),
           child: BlocConsumer<CutiAddCubit, CutiAddState>(
             listener: (context, state) {
-              // TODO: implement listener
+              if (state.status == SubmitStatus.failure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Gagal',
+                          style: GoogleFonts.nunito(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          state.message,
+                          style: GoogleFonts.nunito(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else if (state.status == SubmitStatus.success) {
+                context.read<CutiLoadCubit>().load();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Sukses',
+                          style: GoogleFonts.nunito(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          'Pengajuan cuti telah terkirim.',
+                          style: GoogleFonts.nunito(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+                Navigator.of(context).pop();
+              }
             },
             builder: (context, state) {
               log("Reload ${state.isLoading}");
@@ -49,7 +106,7 @@ class CutiAddScreen extends StatelessWidget {
                     padding: EdgeInsets.all(8),
                     child: FormPart(
                       isUpdate: false,
-                      isLoading: state.isLoading,
+                      isLoading: state.status == SubmitStatus.progress,
                       model: data,
                       formKey: state.formKey,
                       jenisCuti: state.jenisCuti,

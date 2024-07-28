@@ -40,7 +40,9 @@ class CutiRepository {
 
   Future<Cuti> add(Cuti model) async {
     try {
-      print(model.toJson());
+      // var json = jsonDecode('{"resp_error":true,"resp_msg":"Pengajuan Cuti Berhasil"}');
+      // await Future.delayed(Duration(seconds: 10));
+      // return Cuti.fromJson(json);
       var response = await _service.add(
         pegawaiId: model.pegawaiId!,
         filePath: model.cutiFile!,
@@ -54,8 +56,7 @@ class CutiRepository {
       }
       return Cuti.fromJson(response.body);
     } catch (e) {
-      log(e.toString());
-      throw Exception('Failed to login');
+      throw Exception('Failed $e');
     }
   }
 
