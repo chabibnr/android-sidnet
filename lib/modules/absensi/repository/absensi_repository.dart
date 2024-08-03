@@ -9,9 +9,9 @@ import '../service/absensi_service.dart';
 class AbsensiRepository {
   final _service = App.I.chopper.getService<AbsensiService>();
 
-  Future<AbsensiList> load() async {
+  Future<AbsensiList> load({required DateTime date}) async {
     try {
-      var response = await _service.load(pegawaiId: '1', bulan: '7', tahun: '2024');
+      var response = await _service.load(pegawaiId: App.I.session.getAuthData()!.pegawaiId, bulan: date.month.toString(), tahun: date.year.toString());
       if (response.statusCode == 401) {
         throw Error();
       }

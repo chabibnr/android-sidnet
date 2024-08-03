@@ -25,6 +25,9 @@ class AbsensiViewScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("AbsensiView Screen Title"),
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.date_range_rounded)),
+          ],
         ),
         body: BlocProvider(
           create: (context) => AbsensiViewCubit()..load(model),

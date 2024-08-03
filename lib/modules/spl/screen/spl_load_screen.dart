@@ -7,6 +7,7 @@ import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 import './spl_add_screen.dart';
 import './spl_view_screen.dart';
@@ -33,6 +34,20 @@ class SplLoadScreen extends StatelessWidget {
           title: const Text("Pengajuan Lembur"),
           backgroundColor: Colors.transparent,
           actions: [
+            IconButton(
+              onPressed: () async {
+                final value = await showMonthYearPicker(
+                  context: context,
+                  initialDate: context.read<SplLoadCubit>().state.date ?? DateTime.now(),
+                  firstDate: DateTime(2022),
+                  lastDate: DateTime.now(),
+                );
+                if (value != null) {
+                  context.read<SplLoadCubit>().load(date: value);
+                }
+              },
+              icon: Icon(Icons.date_range_rounded),
+            ),
             IconButton(
               onPressed: () {
                 Navigator.push(

@@ -8,9 +8,13 @@ import '../service/spl_service.dart';
 class SplRepository {
   final _service = App.I.chopper.getService<SplService>();
 
-  Future<SplList> load() async {
+  Future<SplList> load(DateTime date) async {
     try {
-      var response = await _service.load(pegawaiId: App.I.session.getAuthData()!.pegawaiId, tahun: '2024', bulan: '7');
+      var response = await _service.load(
+        pegawaiId: App.I.session.getAuthData()!.pegawaiId,
+        tahun: date.year.toString(),
+        bulan: date.month.toString(),
+      );
       if (response.statusCode == 401) {
         throw Error();
       }

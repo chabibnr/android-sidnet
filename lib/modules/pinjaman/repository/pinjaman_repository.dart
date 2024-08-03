@@ -9,11 +9,11 @@ import '../service/pinjaman_service.dart';
 class PinjamanRepository {
   final _service = App.I.chopper.getService<PinjamanService>();
 
-  Future<PinjamanList> load() async {
+  Future<PinjamanList> load(DateTime date) async {
     try {
       var response = await _service.load(
         pegawaiId: App.I.session.getAuthData()!.pegawaiId,
-        tahun: '2024',
+        tahun: date.year.toString(),
       );
       if (response.statusCode == 401) {
         throw Error();

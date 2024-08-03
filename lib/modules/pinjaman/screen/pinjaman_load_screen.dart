@@ -31,6 +31,42 @@ class PinjamanLoadScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Daftar Pinjaman"),
           backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    print(context.read<PinjamanLoadCubit>().state.date ?? DateTime.now());
+                    return AlertDialog(
+                      title: Text("Pilih Tahun"),
+                      content: Container(
+                        // Need to use container to add size constraint.
+                        width: 300,
+                        height: 300,
+                        child: YearPicker(
+                          firstDate: DateTime(2022),
+                          lastDate: DateTime.now(),
+                          // save the selected date to _selectedDate DateTime variable.
+                          // It's used to set the previous selected date when
+                          // re-showing the dialog.
+                          selectedDate: context.read<PinjamanLoadCubit>().state.date,
+                          onChanged: (DateTime dateTime) {
+                            // close the dialog when year is selected.
+                            context.read<PinjamanLoadCubit>().load(date: dateTime);
+                            Navigator.pop(context);
+                            // Do something with the dateTime selected.
+                            // Remember that you need to use dateTime.year to get the year
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: Icon(Icons.date_range_rounded),
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
         body: BlocConsumer<PinjamanLoadCubit, PinjamanLoadState>(
@@ -49,8 +85,8 @@ class PinjamanLoadScreen extends StatelessWidget {
               if (data.items == null || data.items!.isEmpty) {
                 return Container(
                   width: double.infinity,
-                  child: const EmptyScreen(
-                    title: "Tidak ada data SPL",
+                  child: EmptyScreen(
+                    title: "Tidak ada pinjaman tahun ${state.date?.year}",
                     subtitle: "",
                   ),
                 );

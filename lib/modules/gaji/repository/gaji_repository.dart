@@ -8,11 +8,11 @@ import '../service/gaji_service.dart';
 class GajiRepository {
   final _service = App.I.chopper.getService<GajiService>();
 
-  Future<GajiList> load() async {
+  Future<GajiList> load(DateTime date) async {
     try {
       var response = await _service.load(
         pegawaiId: App.I.session.getAuthData()!.pegawaiId,
-        tahun: '2024',
+        tahun: date.year.toString(),
       );
       if (response.statusCode == 401) {
         throw Error();

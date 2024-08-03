@@ -8,6 +8,7 @@ import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 import './absensi_view_screen.dart';
 
@@ -31,6 +32,22 @@ class AbsensiLoadScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Data Absensi"),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                final value = await showMonthYearPicker(
+                  context: context,
+                  initialDate: context.read<AbsensiLoadCubit>().state.date ?? DateTime.now(),
+                  firstDate: DateTime(2022),
+                  lastDate: DateTime.now(),
+                );
+                if (value != null) {
+                  context.read<AbsensiLoadCubit>().load(date: value);
+                }
+              },
+              icon: Icon(Icons.date_range_rounded),
+            ),
+          ],
         ),
         body: BlocConsumer<AbsensiLoadCubit, AbsensiLoadState>(
           listener: (context, state) {

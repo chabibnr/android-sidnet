@@ -8,12 +8,12 @@ import '../service/cuti_service.dart';
 class CutiRepository {
   final _service = App.I.chopper.getService<CutiService>();
 
-  Future<CutiList> load() async {
+  Future<CutiList> load(DateTime date) async {
     try {
       var response = await _service.load(
         pegawaiId: App.I.session.getAuthData()!.pegawaiId,
-        tahun: '2024',
-        bulan: '7',
+        tahun: date.year.toString(),
+        bulan: date.month.toString(),
       );
       if (response.statusCode == 401) {
         throw Error();

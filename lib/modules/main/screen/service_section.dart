@@ -47,7 +47,7 @@ class ServicesSection extends StatelessWidget {
               buildServices(context, "Gaji", "assets/icons/dashboard/expense_list.png", Colors.grey.shade100, Colors.red, () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const GajiLoadScreen()),
+                  MaterialPageRoute(builder: (context) => GajiLoadScreen()),
                 );
               }),
               buildServices(context, "THR", "assets/icons/dashboard/thr.png", Colors.grey.shade100, Colors.cyan, () {

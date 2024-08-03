@@ -8,31 +8,21 @@ import 'package:equatable/equatable.dart';
 part 'absensi_load_state.dart';
 
 class AbsensiLoadCubit extends Cubit<AbsensiLoadState> {
-    final _absensiRepository = AbsensiRepository();
+  final _absensiRepository = AbsensiRepository();
 
-    AbsensiLoadCubit() : super(const AbsensiLoadState());
+  AbsensiLoadCubit() : super(AbsensiLoadState());
 
-    load() async {
-        try {
-            var response = await _absensiRepository.load();
-            emit(state.copyWith(isLoading: false, data: response));
-            log("After Emit data");
-        } catch (e) {
-            log(e.toString());
-            log("Error emit data");
-        }
-   }
+  load({DateTime? date}) async {
+    try {
+      emit(state.copyWith(isLoading: true, date: date));
+      var response = await _absensiRepository.load(date: date ?? DateTime.now());
+      emit(state.copyWith(isLoading: false, data: response));
+      log("After Emit data");
+    } catch (e) {
+      log(e.toString());
+      log("Error emit data");
+    }
+  }
 
-    execute() async {
-        try {
-            var response = await _absensiRepository.load();
-            emit(state.copyWith(isLoading: false, data: response));
-            log("After Emit data");
-        } catch (e) {
-            log(e.toString());
-            log("Error emit data");
-        }
-   }
-
-    // additional feature
+// additional feature
 }

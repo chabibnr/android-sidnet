@@ -31,6 +31,42 @@ class GajiLoadScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Daftar Gaji"),
           backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    print(context.read<GajiLoadCubit>().state.date ?? DateTime.now());
+                    return AlertDialog(
+                      title: Text("Pilih Tahun"),
+                      content: Container(
+                        // Need to use container to add size constraint.
+                        width: 300,
+                        height: 300,
+                        child: YearPicker(
+                          firstDate: DateTime(2022),
+                          lastDate: DateTime.now(),
+                          // save the selected date to _selectedDate DateTime variable.
+                          // It's used to set the previous selected date when
+                          // re-showing the dialog.
+                          selectedDate: context.read<GajiLoadCubit>().state.date,
+                          onChanged: (DateTime dateTime) {
+                            // close the dialog when year is selected.
+                            context.read<GajiLoadCubit>().load(date: dateTime);
+                            Navigator.pop(context);
+                            // Do something with the dateTime selected.
+                            // Remember that you need to use dateTime.year to get the year
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: Icon(Icons.date_range_rounded),
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
         body: BlocConsumer<GajiLoadCubit, GajiLoadState>(
@@ -49,9 +85,9 @@ class GajiLoadScreen extends StatelessWidget {
               if (data.items == null || data.items!.isEmpty) {
                 return Container(
                   width: double.infinity,
-                  child: const EmptyScreen(
+                  child: EmptyScreen(
                     title: "Tidak Ada Data",
-                    subtitle: "Belum ada data untuk tahun 2024",
+                    subtitle: "Belum ada data untuk tahun ${state.date?.year}",
                   ),
                 );
               }
