@@ -50,7 +50,33 @@ class ServicesSection extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const GajiLoadScreen()),
                 );
               }),
-              buildServices(context, "THR", "assets/icons/dashboard/thr.png", Colors.grey.shade100, Colors.cyan, () {}),
+              buildServices(context, "THR", "assets/icons/dashboard/thr.png", Colors.grey.shade100, Colors.cyan, () {
+                showDialog<void>(
+                  context: context,
+                  barrierDismissible: false, // user must tap button!
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Fitur tidak tersedia'),
+                      content: const SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            //Text('Fitur THR belum tersedia.'),
+                            Text('Untuk saat ini fitur THR belum tersedia.'),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('OK'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }),
               buildServices(context, "Pinjaman", "assets/icons/dashboard/loan.png", Colors.grey.shade100, Colors.teal, () {
                 Navigator.push(
                   context,

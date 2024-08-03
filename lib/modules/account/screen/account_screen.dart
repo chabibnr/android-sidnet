@@ -121,11 +121,6 @@ class AccountScreen extends StatelessWidget {
                                       value: data.email,
                                     ),
                                     ProfileInfoRow(
-                                      iconPath: "assets/icons/icon_svg/profile_gender.svg",
-                                      label: "Jenis kelamin",
-                                      value: data.jabatan,
-                                    ),
-                                    ProfileInfoRow(
                                       iconPath: "assets/icons/icon_svg/profile_role.svg",
                                       label: "Jabatan",
                                       value: data.jabatan,
@@ -134,11 +129,6 @@ class AccountScreen extends StatelessWidget {
                                       iconPath: "assets/icons/icon_svg/profile_company.svg",
                                       label: "Cabang",
                                       value: data.cabangNama,
-                                    ),
-                                    ProfileInfoRow(
-                                      iconPath: "assets/icons/icon_svg/profile_address.svg",
-                                      label: "Address",
-                                      value: data.level,
                                     ),
                                   ],
                                 ),

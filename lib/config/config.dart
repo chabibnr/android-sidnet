@@ -20,8 +20,8 @@ class Config {
 
   ChopperClient chopperClient() {
     return ChopperClient(
-      //baseUrl: Uri.parse('https://hrd.sidnet.co.id/api'),
-      baseUrl: Uri.parse('https://hrd.prospak.id/api'),
+      baseUrl: Uri.parse('https://hrd.sidnet.co.id/api'),
+      //baseUrl: Uri.parse('https://hrd.prospak.id/api'),
       client: IOClient(HttpClient()..badCertificateCallback = ((X509Certificate cert, String host, int port) => true)),
       interceptors: [
         HttpLoggingInterceptor(),

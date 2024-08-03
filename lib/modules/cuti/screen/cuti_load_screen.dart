@@ -66,7 +66,7 @@ class CutiLoadScreen extends StatelessWidget {
                 return Container(
                   width: double.infinity,
                   child: const EmptyScreen(
-                    title: "Tidak ada data SPL",
+                    title: "Tidak ada data cuti",
                     subtitle: "",
                   ),
                 );

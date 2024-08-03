@@ -32,7 +32,13 @@ class Item extends StatelessWidget {
                     color: ColorSchema.primaryColor,
                   ),
                 ),
-                if (model.absensiNoSpl != null) Text("${model.absensiNoSpl}"),
+                if (model.absensiNoSpl != null)
+                  Text(
+                    "${model.absensiNoSpl}",
+                    style: GoogleFonts.nunito(
+                      fontSize: 11,
+                    ),
+                  ),
                 if (model.absensiLibur == true)
                   Text(
                     'Libur',
