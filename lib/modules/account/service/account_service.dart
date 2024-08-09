@@ -7,6 +7,20 @@ abstract class AccountService extends ChopperService {
   @Post(path: '/profil', optionalBody: true)
   Future<Response> profile();
 
-  static AccountService create([ChopperClient? client]) =>
-      _$AccountService(client);
+  @Post(
+    path: '/updateavatar',
+    headers: {"Content-Type": "multipart/formdata"},
+  )
+  @multipart
+  Future<Response> avatar({
+    @Part('foto') required String photo,
+  });
+
+  @Post(path: '/gantipassword')
+  Future<Response> password({
+    @Field('password') required String password,
+    @Field('konfirm') required String confirmPassword,
+  });
+
+  static AccountService create([ChopperClient? client]) => _$AccountService(client);
 }

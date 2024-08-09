@@ -5,6 +5,7 @@ import 'package:app/config/color_config.dart';
 import 'package:app/config/config.dart';
 import 'package:app/modules/absensi/bloc/absensi_load/absensi_load_cubit.dart';
 import 'package:app/modules/absensi/bloc/absensi_widget/absensi_widget_cubit.dart';
+import 'package:app/modules/account/bloc/account_cubit.dart';
 import 'package:app/modules/cuti/bloc/cuti_load/cuti_load_cubit.dart';
 import 'package:app/modules/gaji/bloc/gaji_load/gaji_load_cubit.dart';
 import 'package:app/modules/pinjaman/bloc/pinjaman_load/pinjaman_load_cubit.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SplLoadCubit>(
           create: (context) => SplLoadCubit(),
+        ),
+        BlocProvider<AccountCubit>(
+          create: (context) => AccountCubit(),
         ),
         BlocProvider<CutiLoadCubit>(
           create: (context) => CutiLoadCubit(),

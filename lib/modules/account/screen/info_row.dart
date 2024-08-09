@@ -4,12 +4,14 @@ class ProfileInfoRow extends StatelessWidget {
   final String iconPath;
   final String label;
   final String? value;
+  final bool showDivider;
 
   const ProfileInfoRow({
     super.key,
     required this.iconPath,
     required this.label,
     this.value,
+    this.showDivider = true,
   });
 
   @override
@@ -41,7 +43,7 @@ class ProfileInfoRow extends StatelessWidget {
             ),
           ],
         ),
-        Divider(color: Colors.grey.shade300),
+        if (showDivider) Divider(color: Colors.grey.shade300),
         const SizedBox(height: 15),
       ],
     );
