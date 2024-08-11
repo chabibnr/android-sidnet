@@ -6,6 +6,7 @@ import 'package:app/modules/gaji/model/gaji.dart';
 import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GajiViewScreen extends StatelessWidget {
   final Gaji model;
@@ -140,6 +141,43 @@ class GajiViewScreen extends StatelessWidget {
                           label: "Gaji Bersih",
                           value: data.gaji?.gajiNetto,
                         ),
+                        if (data.slipGaji != null)
+                          ElevatedButton(
+                              onPressed: () async {
+                                if (data.slipGaji != null) {
+                                  var uri = Uri.parse(data.slipGaji!);
+                                  try {
+                                    launchUrl(uri, mode: LaunchMode.externalNonBrowserApplication);
+                                  } catch (error) {
+                                    showDialog<void>(
+                                      context: context,
+                                      barrierDismissible: false, // user must tap button!
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text('Tidak dapat dibuka'),
+                                          content: const SingleChildScrollView(
+                                            child: ListBody(
+                                              children: <Widget>[
+                                                //Text('Fitur THR belum tersedia.'),
+                                                Text('Silahkan download aplikasi pembuka file pdf untuk melihat slip gaji.'),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: const Text('OK'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                }
+                              },
+                              child: Text("Lihat Slip Gaji"))
                       ],
                     ),
                   ),

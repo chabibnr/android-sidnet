@@ -59,6 +59,9 @@ class DetailGaji {
   @JsonKey(name: "periode")
   String? periode;
 
+  @JsonKey(name: "slip_gaji")
+  String? slipGaji;
+
   @JsonKey(name: "item")
   Gaji? gaji;
 
@@ -73,6 +76,7 @@ class DetailGaji {
     this.masakerja,
     this.noRekening,
     this.namaBank,
+    this.slipGaji,
   });
 
   factory DetailGaji.fromJson(Map<String, dynamic> json) => _$DetailGajiFromJson(json);
