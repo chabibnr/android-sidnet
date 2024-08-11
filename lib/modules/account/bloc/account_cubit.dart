@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:app/app.dart';
 import 'package:app/modules/account/model/account.dart';
 import 'package:app/modules/account/repository/account_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -20,6 +21,21 @@ class AccountCubit extends Cubit<AccountState> {
     } catch (e) {
       log(e.toString());
       log("Error emit data");
+    }
+  }
+
+  changeAvatar(String? avatar) {
+    if (avatar != null) {
+      emit(state.copyWith(isLoading: true));
+      var current = state.data;
+      current?.avatar = avatar;
+      var session = App.I.session.getAuthData();
+      session?.avatar = avatar;
+      App.I.session.setAuthData(session!);
+      emit(state.copyWith(isLoading: false, data: current));
+      log('Avatar changged ${current?.avatar}');
+    } else {
+      log('Avatar not changed ${avatar}');
     }
   }
 }

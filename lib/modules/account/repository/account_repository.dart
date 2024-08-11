@@ -46,13 +46,15 @@ class AccountRepository {
   Future<Account> changeAvatar(String photo) async {
     try {
       var response = await _service.avatar(photo: photo);
-      if (response.statusCode == 401) {
-        throw Error();
+      if (response.statusCode == 403) {
+        return Account.fromJson(jsonDecode(response.error as String));
       }
       return Account.fromJson(response.body);
     } catch (e) {
-      log(e.toString());
-      throw Exception('Failed to login');
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 

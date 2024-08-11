@@ -10,5 +10,7 @@ part 'main_state.dart';
 class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainState(auth: App.I.session.getAuthData()!));
 
-  load() async {}
+  load() async {
+    emit(MainState(auth: App.I.session.getAuthData()!));
+  }
 }

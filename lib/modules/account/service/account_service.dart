@@ -13,7 +13,7 @@ abstract class AccountService extends ChopperService {
   )
   @multipart
   Future<Response> avatar({
-    @Part('foto') required String photo,
+    @PartFile('foto') required String photo,
   });
 
   @Post(path: '/gantipassword')

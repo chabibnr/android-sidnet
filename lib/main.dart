@@ -8,6 +8,7 @@ import 'package:app/modules/absensi/bloc/absensi_widget/absensi_widget_cubit.dar
 import 'package:app/modules/account/bloc/account_cubit.dart';
 import 'package:app/modules/cuti/bloc/cuti_load/cuti_load_cubit.dart';
 import 'package:app/modules/gaji/bloc/gaji_load/gaji_load_cubit.dart';
+import 'package:app/modules/main/bloc/main_cubit.dart';
 import 'package:app/modules/pinjaman/bloc/pinjaman_load/pinjaman_load_cubit.dart';
 import 'package:app/modules/spl/bloc/spl_load/spl_load_cubit.dart';
 import 'package:app/root.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SplLoadCubit>(
           create: (context) => SplLoadCubit(),
+        ),
+        BlocProvider<MainCubit>(
+          create: (context) => MainCubit(),
         ),
         BlocProvider<AccountCubit>(
           create: (context) => AccountCubit(),

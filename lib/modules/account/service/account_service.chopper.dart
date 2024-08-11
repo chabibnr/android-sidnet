@@ -35,7 +35,7 @@ final class _$AccountService extends AccountService {
       'Content-Type': 'multipart/formdata',
     };
     final List<PartValue> $parts = <PartValue>[
-      PartValue<String>(
+      PartValueFile<String>(
         'foto',
         photo,
       )

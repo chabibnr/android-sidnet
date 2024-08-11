@@ -5,13 +5,18 @@ import 'package:app/config/color_config.dart';
 import 'package:app/helper/form_state.dart';
 import 'package:app/modules/account/bloc/account_cubit.dart';
 import 'package:app/modules/account/bloc/account_password/account_password_cubit.dart';
+import 'package:app/modules/account/bloc/account_photo/account_photo_cubit.dart';
+import 'package:app/modules/main/bloc/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
+part 'account_change_picture.dart';
 part 'info_row.dart';
 
 enum PopupMenu {
@@ -65,7 +70,7 @@ class AccountScreen extends StatelessWidget {
                   title: const Text('Ganti Kata Sandi'),
                   icon: CircleAvatar(
                     backgroundColor: ColorConfig.primary,
-                    child: Icon(
+                    child: const Icon(
                       Icons.lock,
                       color: Colors.white,
                     ),
@@ -320,7 +325,9 @@ class AccountScreen extends StatelessWidget {
                       onSelected: (PopupMenu value) {
                         if (value == PopupMenu.changePassword) {
                           formChangePassword(context);
-                        } else if (value == PopupMenu.changePicture) {}
+                        } else if (value == PopupMenu.changePicture) {
+                          changePicture(context);
+                        }
                       },
                       itemBuilder: (BuildContext context) {
                         return [
