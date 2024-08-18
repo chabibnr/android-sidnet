@@ -1,9 +1,7 @@
 import 'dart:developer';
 
-import 'package:app/config/color_config.dart';
 import 'package:app/modules/absensi/bloc/absensi_widget/absensi_widget_cubit.dart';
 import 'package:app/modules/main/screen/header_section.dart';
-import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,12 +19,7 @@ class AbsensiWidgetScreen extends StatelessWidget {
       margin: const EdgeInsets.only(left: 16, right: 16, top: 30),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Colors.white, ColorConfig.primary],
-        ),
+        color: Colors.blue.shade100.withOpacity(0.8),
       ),
       child: Column(
         children: [
@@ -52,7 +45,7 @@ class AbsensiWidgetScreen extends StatelessWidget {
                       buildReports(
                         "MASUK",
                         data.absensiIn ?? '-',
-                        Colors.lightBlueAccent.shade400.withOpacity(0.25),
+                        Colors.white54,
                         "assets/icons/icon_svg/sale_service_icon.svg",
                         screenWidth,
                         context,
@@ -60,7 +53,7 @@ class AbsensiWidgetScreen extends StatelessWidget {
                       buildReports(
                         "PULANG",
                         data.absensiOut ?? '-',
-                        Colors.purple.shade200.withOpacity(0.25),
+                        Colors.white54,
                         "assets/icons/icon_svg/purchase_service_icon.svg",
                         screenWidth,
                         context,
@@ -95,11 +88,6 @@ class AbsensiWidgetScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: reportColor,
           borderRadius: BorderRadius.circular(8),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [ColorSchema.primaryColor, reportColor],
-          ),
         ),
         child: Column(
           children: [
@@ -108,8 +96,8 @@ class AbsensiWidgetScreen extends StatelessWidget {
               style: GoogleFonts.nunito(
                 textStyle: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.035,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF333333),
                 ),
               ),
             ),
@@ -119,11 +107,16 @@ class AbsensiWidgetScreen extends StatelessWidget {
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: MediaQuery.of(context).size.width * 0.045,
-                    color: Colors.white,
+                    color: const Color(0xFF333333),
                   ),
                 ),
                 children: [
-                  TextSpan(text: amount),
+                  TextSpan(
+                    text: amount,
+                    style: GoogleFonts.nunito(
+                      color: const Color(0xFF333333),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -99,6 +99,41 @@ class ServicesSection extends StatelessWidget {
             children: [
               Stack(alignment: Alignment.center, children: [
                 Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(color: serviceColor, borderRadius: BorderRadius.circular(50)),
+                ),
+                ImageIcon(
+                  AssetImage(
+                    serviceIcon,
+                  ),
+                  color: serviceImageColor,
+                  size: 35,
+                )
+              ]),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                service,
+                style: GoogleFonts.nunito(textStyle: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.035)),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  InkWell buildServicesx(context, String service, String serviceIcon, Color serviceColor, Color serviceImageColor, Function onPressed) {
+    return InkWell(
+      onTap: () => onPressed(),
+      child: Column(
+        children: [
+          Column(
+            children: [
+              Stack(alignment: Alignment.center, children: [
+                Container(
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(

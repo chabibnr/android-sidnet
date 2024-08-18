@@ -73,10 +73,24 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),
         color: ColorConfig.primary,
-        localizationsDelegates: [
+        localizationsDelegates: const [
           MonthYearPickerLocalizations.delegate,
         ],
-        builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child!),
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: Container(
+            decoration: BoxDecoration(
+              // gradient: LinearGradient(
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              //   colors: [ColorSchema.titleTextColor, Colors.white],
+              // ),
+              // borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+              color: Color(0xffF0F2F5),
+            ),
+            child: child!,
+          ),
+        ),
         home: const Root(),
       ),
     );
