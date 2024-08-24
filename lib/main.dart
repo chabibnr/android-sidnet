@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
               //   colors: [ColorSchema.titleTextColor, Colors.white],
               // ),
               // borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-              color: Color(0xffF0F2F5),
+              color: Color(0xffF8F8F8),
             ),
             child: child!,
           ),

@@ -7,16 +7,19 @@ class Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Colors.white, ColorConfig.primary],
-        ),
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -52,26 +55,35 @@ class Item extends StatelessWidget {
           ),
           if (model.hasIn)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buildReports(
-                    "MASUK",
-                    model.absensiIn == null || model.absensiIn!.isEmpty ? '-' : model.absensiIn!,
-                    Colors.lightBlueAccent.shade400.withOpacity(0.25),
-                    "assets/icons/icon_svg/sale_service_icon.svg",
-                    screenWidth,
-                    context,
+                  Row(
+                    children: [
+                      const RotatedBox(
+                        quarterTurns: 2,
+                        child: Icon(
+                          Icons.outbound_outlined,
+                          size: 18,
+                          color: Colors.green,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(model.absensiIn == null || model.absensiIn!.isEmpty ? '-' : model.absensiIn!)
+                    ],
                   ),
-                  buildReports(
-                    "PULANG",
-                    model.absensiOut == null || model.absensiOut!.isEmpty ? '-' : model.absensiOut!,
-                    Colors.purple.shade200.withOpacity(0.25),
-                    "assets/icons/icon_svg/purchase_service_icon.svg",
-                    screenWidth,
-                    context,
-                  ),
+                  const SizedBox(width: 20),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.outbound_outlined,
+                        size: 18,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      SizedBox(width: 5),
+                      Text(model.absensiOut == null || model.absensiOut!.isEmpty ? '-' : model.absensiOut!)
+                    ],
+                  )
                 ],
               ),
             ),
@@ -134,11 +146,6 @@ class Item extends StatelessWidget {
         decoration: BoxDecoration(
           color: reportColor,
           borderRadius: BorderRadius.circular(8),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [ColorSchema.primaryColor, reportColor],
-          ),
         ),
         child: Column(
           children: [
@@ -148,7 +155,7 @@ class Item extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.035,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: const Color(0xFF333333),
                 ),
               ),
             ),
@@ -158,7 +165,7 @@ class Item extends StatelessWidget {
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: MediaQuery.of(context).size.width * 0.045,
-                    color: Colors.white,
+                    color: const Color(0xFF333333),
                   ),
                 ),
                 children: [

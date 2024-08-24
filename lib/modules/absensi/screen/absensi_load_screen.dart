@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:app/config/color_config.dart';
 import 'package:app/modules/absensi/bloc/absensi_load/absensi_load_cubit.dart';
 import 'package:app/modules/absensi/model/absensi.dart';
 import 'package:app/modules/absensi/screen/button_absensi.dart';
@@ -20,75 +19,65 @@ class AbsensiLoadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<AbsensiLoadCubit>().load();
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [ColorSchema.primaryColor, Colors.white],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Data Absensi"),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final value = await showMonthYearPicker(
+                context: context,
+                initialDate: context.read<AbsensiLoadCubit>().state.date ?? DateTime.now(),
+                firstDate: DateTime(2022),
+                lastDate: DateTime.now(),
+              );
+              if (value != null) {
+                context.read<AbsensiLoadCubit>().load(date: value);
+              }
+            },
+            icon: Icon(Icons.date_range_rounded),
+          ),
+        ],
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Data Absensi"),
-          actions: [
-            IconButton(
-              onPressed: () async {
-                final value = await showMonthYearPicker(
-                  context: context,
-                  initialDate: context.read<AbsensiLoadCubit>().state.date ?? DateTime.now(),
-                  firstDate: DateTime(2022),
-                  lastDate: DateTime.now(),
-                );
-                if (value != null) {
-                  context.read<AbsensiLoadCubit>().load(date: value);
-                }
-              },
-              icon: Icon(Icons.date_range_rounded),
-            ),
-          ],
-        ),
-        body: BlocConsumer<AbsensiLoadCubit, AbsensiLoadState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            log("Reload ${state.isLoading}");
-            if (state.isLoading && state.data == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            final data = state.data;
-            if (data != null) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  context.read<AbsensiLoadCubit>().load();
-                },
-                child: ListView.builder(
-                  itemCount: data.items?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var row = data.items![index];
-                    return GestureDetector(
-                      onTap: () {
-                        if (row.hasIn || row.hasOut) {
-                          viewDetail(context, row);
-                        }
-                      },
-                      child: Item(model: row),
-                    );
-                  },
-                ),
-              );
-            }
+      body: BlocConsumer<AbsensiLoadCubit, AbsensiLoadState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          log("Reload ${state.isLoading}");
+          if (state.isLoading && state.data == null) {
             return const Center(
-              child: Text('Error'),
+              child: CircularProgressIndicator(),
             );
-          },
-        ),
-        floatingActionButton: ButtonAbsensi(model: Absensi()),
+          }
+          final data = state.data;
+          if (data != null) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<AbsensiLoadCubit>().load();
+              },
+              child: ListView.builder(
+                itemCount: data.items?.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var row = data.items![index];
+                  return GestureDetector(
+                    onTap: () {
+                      if (row.hasIn || row.hasOut) {
+                        //viewDetail(context, row);
+                      }
+                    },
+                    child: Item(model: row),
+                  );
+                },
+              ),
+            );
+          }
+          return const Center(
+            child: Text('Error'),
+          );
+        },
       ),
+      floatingActionButton: ButtonAbsensi(model: Absensi()),
     );
   }
 

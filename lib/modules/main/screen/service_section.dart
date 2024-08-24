@@ -12,7 +12,7 @@ class ServicesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
+      padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
       child: Column(
         children: [
           Row(
@@ -101,7 +101,18 @@ class ServicesSection extends StatelessWidget {
                 Container(
                   width: 70,
                   height: 70,
-                  decoration: BoxDecoration(color: serviceColor, borderRadius: BorderRadius.circular(50)),
+                  decoration: BoxDecoration(
+                    color: serviceColor,
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
                 ),
                 ImageIcon(
                   AssetImage(

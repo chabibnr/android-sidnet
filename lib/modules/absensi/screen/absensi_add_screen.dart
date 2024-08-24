@@ -152,49 +152,65 @@ class AbsensiAddScreen extends StatelessWidget {
                 appBar: AppBar(
                   title: const Text("Absensi"),
                 ),
-                body: Container(
-                  margin: const EdgeInsets.all(16),
+                body: Center(
                   child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    margin: const EdgeInsets.symmetric(horizontal: 32),
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(8),
+                        Radius.circular(16),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (state.photo != null)
-                          Image.file(
-                            File(state.photo!.path),
-                            width: 200,
-                          ),
-                        if (state.photo == null)
-                          const SizedBox(
-                            height: 200,
-                            child: Center(
-                              child: Text("Silahkan ambil foto untuk absensi"),
-                            ),
-                          ),
-                        Container(
-                          margin: EdgeInsets.only(top: 16),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: OutlinedButton.icon(
-                                  icon: Icon(Icons.camera_alt_outlined),
-                                  onPressed: () {
-                                    openCamera(context);
-                                  },
-                                  label: Text("Ambil Foto"),
-                                ),
-                              ),
-                            ],
-                          ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
                         ),
                       ],
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (state.photo != null)
+                            Image.file(
+                              File(state.photo!.path),
+                              width: 200,
+                            ),
+                          if (state.photo == null)
+                            const SizedBox(
+                              height: 200,
+                              child: Center(
+                                child: Text("Silahkan ambil foto untuk absensi"),
+                              ),
+                            ),
+                          Container(
+                            margin: EdgeInsets.only(top: 16),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  child: OutlinedButton.icon(
+                                    icon: Icon(Icons.camera_alt_outlined),
+                                    onPressed: () {
+                                      openCamera(context);
+                                    },
+                                    label: Text("Ambil Foto"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -370,11 +386,19 @@ class _AbsensiAddScreenState extends State<AbsensixAddScreen> {
                   margin: const EdgeInsets.all(16),
                   child: Container(
                     padding: const EdgeInsets.all(16),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -387,8 +411,8 @@ class _AbsensiAddScreenState extends State<AbsensixAddScreen> {
                         if (photo == null)
                           Container(
                             height: 200,
-                            child: Center(
-                              child: Text("Silahkan ambil foto untuk absensi"),
+                            child: const Center(
+                              child: Text("Silahkan ambil foto untuk absensis"),
                             ),
                           ),
                         Container(

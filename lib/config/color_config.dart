@@ -8,7 +8,7 @@ class ColorConfig {
   static Color blueButton = const Color(0xFF30AEE4);
   static Color blueButtonDisabled = const Color(0xFFA6E4FF);
   static Color backgroundPrimary = const Color(0xFF0C325F);
-  static Color primary = const Color(0xFF2C6AE5);
+  static Color primary = const Color(0xFF0C325F);
   static Color primaryDark = const Color(0xffd6652d);
   static Color primaryLight = const Color(0xfff99233);
   static Color backgroundRed = const Color(0xFFFB4E4E);

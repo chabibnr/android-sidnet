@@ -1,4 +1,5 @@
 import 'package:app/config/color_config.dart';
+import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,10 +8,10 @@ class AppTheme {
     return ThemeData.light().copyWith(
       textTheme: GoogleFonts.nunitoTextTheme(),
       primaryColor: ColorConfig.primary,
-      scaffoldBackgroundColor: Colors.transparent,
+      //scaffoldBackgroundColor: Colors.transparent,
       appBarTheme: AppBarTheme(
-        elevation: 0,
-        color: Colors.transparent,
+        elevation: 2,
+        color: ColorSchema.primaryColor,
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),

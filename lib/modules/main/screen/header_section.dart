@@ -56,7 +56,7 @@ class HeaderSection extends StatelessWidget {
                           Text(
                             state.auth.jabatan,
                             style: GoogleFonts.nunito(
-                              textStyle: const TextStyle(color: Colors.white, fontSize: 12),
+                              textStyle: const TextStyle(color: Colors.grey, fontSize: 12),
                             ),
                           )
                         ],
