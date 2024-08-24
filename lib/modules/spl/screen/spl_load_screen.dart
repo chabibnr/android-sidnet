@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:app/component/empty_screen.dart';
 import 'package:app/modules/spl/bloc/spl_load/spl_load_cubit.dart';
 import 'package:app/modules/spl/model/spl.dart';
-import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,91 +19,79 @@ class SplLoadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<SplLoadCubit>().load();
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [ColorSchema.primaryColor, Colors.white],
-        ),
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Pengajuan Lembur"),
-          backgroundColor: Colors.transparent,
-          actions: [
-            IconButton(
-              onPressed: () async {
-                final value = await showMonthYearPicker(
-                  context: context,
-                  initialDate: context.read<SplLoadCubit>().state.date ?? DateTime.now(),
-                  firstDate: DateTime(2022),
-                  lastDate: DateTime.now(),
-                );
-                if (value != null) {
-                  context.read<SplLoadCubit>().load(date: value);
-                }
-              },
-              icon: Icon(Icons.date_range_rounded),
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SplAddScreen(model: Spl())),
-                );
-              },
-              tooltip: "Pengajuan lembur baru",
-              icon: const Icon(
-                Icons.add_circle_outline,
-                size: 40,
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: Colors.transparent,
-        body: RefreshIndicator(
-          onRefresh: () => context.read<SplLoadCubit>().load(),
-          child: BlocConsumer<SplLoadCubit, SplLoadState>(
-            listener: (context, state) {
-              // TODO: implement listener
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pengajuan Lembur"),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final value = await showMonthYearPicker(
+                context: context,
+                initialDate: context.read<SplLoadCubit>().state.date ?? DateTime.now(),
+                firstDate: DateTime(2022),
+                lastDate: DateTime.now(),
+              );
+              if (value != null) {
+                context.read<SplLoadCubit>().load(date: value);
+              }
             },
-            builder: (context, state) {
-              log("Reload ${state.isLoading}");
-              if (state.isLoading && state.data == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final data = state.data;
-              if (data != null) {
-                if (data.items == null || data.items!.isEmpty) {
-                  return Container(
-                    width: double.infinity,
-                    child: const EmptyScreen(
-                      title: "Tidak ada data SPL",
-                      subtitle: "",
-                    ),
-                  );
-                }
-                return ListView.builder(
-                    itemCount: data.items?.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var row = data.items![index];
-                      return GestureDetector(
-                        onTap: () {
-                          //viewDetail(context, row);
-                        },
-                        child: Item(model: row),
-                      );
-                    });
-              }
-              return const Center(
-                child: Text('Error'),
+            icon: Icon(Icons.date_range_rounded),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SplAddScreen(model: Spl())),
               );
             },
+            tooltip: "Pengajuan lembur baru",
+            icon: const Icon(
+              Icons.add_circle_outline,
+            ),
           ),
+        ],
+      ),
+      backgroundColor: Colors.transparent,
+      body: RefreshIndicator(
+        onRefresh: () => context.read<SplLoadCubit>().load(),
+        child: BlocConsumer<SplLoadCubit, SplLoadState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            log("Reload ${state.isLoading}");
+            if (state.isLoading && state.data == null) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final data = state.data;
+            if (data != null) {
+              if (data.items == null || data.items!.isEmpty) {
+                return Container(
+                  width: double.infinity,
+                  child: const EmptyScreen(
+                    title: "Tidak ada data SPL",
+                    subtitle: "",
+                  ),
+                );
+              }
+              return ListView.builder(
+                  itemCount: data.items?.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var row = data.items![index];
+                    return GestureDetector(
+                      onTap: () {
+                        //viewDetail(context, row);
+                      },
+                      child: Item(model: row),
+                    );
+                  });
+            }
+            return const Center(
+              child: Text('Error'),
+            );
+          },
         ),
       ),
     );

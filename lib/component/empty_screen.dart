@@ -18,23 +18,23 @@ class EmptyScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.notification_important_outlined,
-          color: Colors.white,
+          color: Colors.grey.shade600,
           size: 80,
         ),
         Text(
           title,
           style: GoogleFonts.nunito(
             fontSize: 24,
-            color: Colors.white,
+            color: Colors.grey.shade400,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           subtitle,
           style: GoogleFonts.nunito(
-            color: Colors.white,
+            color: Colors.grey.shade400,
             fontSize: 18,
           ),
         ),

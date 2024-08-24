@@ -6,7 +6,6 @@ import 'package:app/helper/form_state.dart';
 import 'package:app/modules/account/bloc/account_cubit.dart';
 import 'package:app/modules/account/bloc/account_password/account_password_cubit.dart';
 import 'package:app/modules/account/bloc/account_photo/account_photo_cubit.dart';
-import 'package:app/modules/main/bloc/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -176,181 +175,180 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<AccountCubit>().load();
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF4D7CEB), Colors.white],
-        ),
-      ),
-      child: Scaffold(
-        body: BlocConsumer<AccountCubit, AccountState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            log("Reload ${state.isLoading}");
-            if (state.isLoading && state.data == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            final data = state.data;
-            if (data != null) {
-              return Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 50),
-                          Center(
-                            child: CircleAvatar(
-                              radius: 70,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: NetworkImage(data.avatar!),
-                            ),
+    return Scaffold(
+      body: BlocConsumer<AccountCubit, AccountState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          log("Reload ${state.isLoading}");
+          if (state.isLoading && state.data == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final data = state.data;
+          if (data != null) {
+            return Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 50),
+                        Center(
+                          child: CircleAvatar(
+                            radius: 70,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: NetworkImage(data.avatar!),
                           ),
-                          const SizedBox(height: 10),
-                          Center(
+                        ),
+                        const SizedBox(height: 10),
+                        Center(
+                          child: Column(
+                            children: [
+                              Text(
+                                data.nama ?? "",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                    color: ColorConfig.primary,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                data.jabatan ?? "",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                  textStyle: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        Container(
+                          margin: EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              top: 16,
+                              left: 16,
+                              right: 16,
+                            ),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  data.nama ?? "",
-                                  textAlign: TextAlign.center,
+                                  "Account Info",
                                   style: GoogleFonts.inter(
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                      color: Colors.white,
+                                      fontSize: 22,
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  data.jabatan ?? "",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.inter(
-                                    textStyle: const TextStyle(
-                                      color: Colors.white54,
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                                const SizedBox(height: 20),
+                                ProfileInfoRow(
+                                  iconPath: "assets/icons/icon_svg/profile_name.svg",
+                                  label: "Username",
+                                  value: data.username,
+                                ),
+                                ProfileInfoRow(
+                                  iconPath: "assets/icons/icon_svg/profile_phone.svg",
+                                  label: "Telepon",
+                                  value: data.telp,
+                                ),
+                                ProfileInfoRow(
+                                  iconPath: "assets/icons/icon_svg/profile_email.svg",
+                                  label: "Email",
+                                  value: data.email,
+                                ),
+                                ProfileInfoRow(
+                                  iconPath: "assets/icons/icon_svg/profile_role.svg",
+                                  label: "Jabatan",
+                                  value: data.jabatan,
+                                ),
+                                ProfileInfoRow(
+                                  iconPath: "assets/icons/icon_svg/profile_company.svg",
+                                  label: "Cabang",
+                                  value: data.cabangNama,
+                                  showDivider: false,
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 30),
-                          Card(
-                            margin: EdgeInsets.zero,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 16,
-                                left: 16,
-                                right: 16,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Account Info",
-                                    style: GoogleFonts.inter(
-                                      textStyle: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  ProfileInfoRow(
-                                    iconPath: "assets/icons/icon_svg/profile_name.svg",
-                                    label: "Username",
-                                    value: data.username,
-                                  ),
-                                  ProfileInfoRow(
-                                    iconPath: "assets/icons/icon_svg/profile_phone.svg",
-                                    label: "Telepon",
-                                    value: data.telp,
-                                  ),
-                                  ProfileInfoRow(
-                                    iconPath: "assets/icons/icon_svg/profile_email.svg",
-                                    label: "Email",
-                                    value: data.email,
-                                  ),
-                                  ProfileInfoRow(
-                                    iconPath: "assets/icons/icon_svg/profile_role.svg",
-                                    label: "Jabatan",
-                                    value: data.jabatan,
-                                  ),
-                                  ProfileInfoRow(
-                                    iconPath: "assets/icons/icon_svg/profile_company.svg",
-                                    label: "Cabang",
-                                    value: data.cabangNama,
-                                    showDivider: false,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          Container(
-                            height: 100,
-                          )
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 30),
+                        Container(
+                          height: 100,
+                        )
+                      ],
                     ),
                   ),
-                  Positioned(
-                    top: 30,
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(Icons.keyboard_arrow_left),
-                      color: Colors.white,
-                      iconSize: 30,
-                    ),
+                ),
+                Positioned(
+                  top: 30,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.keyboard_arrow_left),
+                    color: ColorConfig.primary,
+                    iconSize: 30,
                   ),
-                  Positioned(
-                    top: 30,
-                    right: 10,
-                    child: PopupMenuButton<PopupMenu>(
-                      iconColor: Colors.white,
-                      onSelected: (PopupMenu value) {
-                        if (value == PopupMenu.changePassword) {
-                          formChangePassword(context);
-                        } else if (value == PopupMenu.changePicture) {
-                          changePicture(context);
-                        }
-                      },
-                      itemBuilder: (BuildContext context) {
-                        return [
-                          const PopupMenuItem<PopupMenu>(
-                            value: PopupMenu.changePicture,
-                            child: Text('Ganti Foto Profil'),
-                          ),
-                          const PopupMenuItem<PopupMenu>(
-                            value: PopupMenu.changePassword,
-                            child: Text('Ganti Kata Sandi'),
-                          ),
-                        ];
-                      },
-                    ),
-                  )
-                ],
-              );
-            }
-            return const Center(
-              child: Text('Error'),
+                ),
+                Positioned(
+                  top: 30,
+                  right: 10,
+                  child: PopupMenuButton<PopupMenu>(
+                    iconColor: ColorConfig.primary,
+                    onSelected: (PopupMenu value) {
+                      if (value == PopupMenu.changePassword) {
+                        formChangePassword(context);
+                      } else if (value == PopupMenu.changePicture) {
+                        changePicture(context);
+                      }
+                    },
+                    itemBuilder: (BuildContext context) {
+                      return [
+                        const PopupMenuItem<PopupMenu>(
+                          value: PopupMenu.changePicture,
+                          child: Text('Ganti Foto Profil'),
+                        ),
+                        const PopupMenuItem<PopupMenu>(
+                          value: PopupMenu.changePassword,
+                          child: Text('Ganti Kata Sandi'),
+                        ),
+                      ];
+                    },
+                  ),
+                )
+              ],
             );
-          },
-        ),
+          }
+          return const Center(
+            child: Text('Error'),
+          );
+        },
       ),
     );
   }
