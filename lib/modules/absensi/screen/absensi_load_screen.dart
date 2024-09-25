@@ -7,7 +7,7 @@ import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:month_year_picker/month_year_picker.dart';
+import 'package:mat_month_picker_dialog/mat_month_picker_dialog.dart';
 
 import './absensi_view_screen.dart';
 
@@ -25,7 +25,7 @@ class AbsensiLoadScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              final value = await showMonthYearPicker(
+              final value = await showMonthPicker(
                 context: context,
                 initialDate: context.read<AbsensiLoadCubit>().state.date ?? DateTime.now(),
                 firstDate: DateTime(2022),

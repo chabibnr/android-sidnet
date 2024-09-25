@@ -158,6 +158,9 @@ class Gaji {
   @JsonKey(name: "gaji_pot_lain")
   String? gajiPotLain;
 
+  @JsonKey(name: "gaji_pot_pph21")
+  String? gajiPotPph21;
+
   Gaji({
     this.gajiId,
     this.gajiPeriode,
@@ -183,6 +186,7 @@ class Gaji {
     this.gajiPotDenda,
     this.gajiPotAngsuran,
     this.gajiPotLain,
+    this.gajiPotPph21,
   });
 
   factory Gaji.fromJson(Map<String, dynamic> json) => _$GajiFromJson(json);

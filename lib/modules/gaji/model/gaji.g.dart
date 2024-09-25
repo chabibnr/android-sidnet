@@ -31,9 +31,9 @@ DetailGaji _$DetailGajiFromJson(Map<String, dynamic> json) => DetailGaji(
       masakerja: json['masakerja'] as String?,
       noRekening: json['no_rekening'] as String?,
       namaBank: json['nama_bank'] as String?,
+      slipGaji: json['slip_gaji'] as String?,
     )
       ..periode = json['periode'] as String?
-      ..slipGaji = json['slip_gaji'] as String?
       ..gaji = json['item'] == null
           ? null
           : Gaji.fromJson(json['item'] as Map<String, dynamic>);
@@ -80,6 +80,7 @@ Gaji _$GajiFromJson(Map<String, dynamic> json) => Gaji(
       gajiPotDenda: json['gaji_pot_denda'] as String?,
       gajiPotAngsuran: json['gaji_pot_angsuran'] as String?,
       gajiPotLain: json['gaji_pot_lain'] as String?,
+      gajiPotPph21: json['gaji_pot_pph21'] as String?,
     );
 
 Map<String, dynamic> _$GajiToJson(Gaji instance) => <String, dynamic>{
@@ -107,4 +108,5 @@ Map<String, dynamic> _$GajiToJson(Gaji instance) => <String, dynamic>{
       'gaji_pot_denda': instance.gajiPotDenda,
       'gaji_pot_angsuran': instance.gajiPotAngsuran,
       'gaji_pot_lain': instance.gajiPotLain,
+      'gaji_pot_pph21': instance.gajiPotPph21,
     };

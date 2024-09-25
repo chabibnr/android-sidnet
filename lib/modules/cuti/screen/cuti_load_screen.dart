@@ -7,7 +7,7 @@ import 'package:app/utils/contstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:month_year_picker/month_year_picker.dart';
+import 'package:mat_month_picker_dialog/mat_month_picker_dialog.dart';
 
 import './cuti_add_screen.dart';
 import './cuti_view_screen.dart';
@@ -26,7 +26,7 @@ class CutiLoadScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              final value = await showMonthYearPicker(
+              final value = await showMonthPicker(
                 context: context,
                 initialDate: context.read<CutiLoadCubit>().state.date ?? DateTime.now(),
                 firstDate: DateTime(2022),

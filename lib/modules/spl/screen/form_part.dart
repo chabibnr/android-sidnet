@@ -85,7 +85,7 @@ class FormPart extends StatelessWidget {
                   context.read<SplAddCubit>().execute();
                 },
           label: Text(
-            isLoading ? 'Mengirim pengajuan...' : 'Kirim Pengajuan Lembut',
+            isLoading ? 'Mengirim pengajuan...' : 'Kirim Pengajuan Lembur',
             style: GoogleFonts.nunito(
               fontSize: 18,
             ),

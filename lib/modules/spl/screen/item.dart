@@ -79,6 +79,7 @@ class Item extends StatelessWidget {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 width: 100,
@@ -93,7 +94,13 @@ class Item extends StatelessWidget {
                 padding: EdgeInsets.only(right: 8),
                 child: Text(":"),
               ),
-              Text("${model.splKeterangan}"),
+              Expanded(
+                child: Text(
+                  "${model.splKeterangan}",
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
           Row(

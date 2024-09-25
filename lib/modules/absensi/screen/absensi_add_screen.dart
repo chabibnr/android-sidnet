@@ -58,7 +58,7 @@ class AbsensiAddScreen extends StatelessWidget {
 
   openCamera(BuildContext context) async {
     final ImagePicker picker = ImagePicker();
-    picker.pickImage(source: ImageSource.camera).then((value) {
+    picker.pickImage(source: ImageSource.camera, maxHeight: 480, maxWidth: 640, imageQuality: 50).then((value) {
       context.read<AbsensiAddCubit>().setPhoto(value);
     });
   }
